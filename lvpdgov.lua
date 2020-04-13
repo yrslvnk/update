@@ -9,6 +9,7 @@ script_author('Henrich_Rogge') -- ”казываем им€ автора
 require 'lib.moonloader'
 require 'lib.sampfuncs'
 
+local dlstatus = require('moonloader').download_status
 local wm = require 'lib.windows.message'
 local encoding = require 'encoding'
 local imgui = require 'imgui'
