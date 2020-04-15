@@ -2,7 +2,7 @@
 
 -- Информация о скрипте
 script_name('lvpd-gov')        -- Указываем имя скрипта
-script_version(1.11) 					 -- Указываем версию скрипта
+script_version(1.12) 					 -- Указываем версию скрипта
 script_author('Henrich_Rogge') -- Указываем имя автора
 
 -- Библиотеки
@@ -57,24 +57,24 @@ function main()
 	update()
 	-- Обновляем сессионные настройки
 	sInfo.myid = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
-	sInfo.mynick = sampGetPlayerNickname(sInfo.myid)
-	if sInfo.mynick == 'Henrich_Rogge' then
+	sInfo.mynick = sampGetPlayerNickname(sInfo.myid):gsub('_', ' ')
+	if sInfo.mynick == 'Henrich Rogge' then
 		sInfo.myrank = 'Майор'
-	elseif sInfo.mynick == 'Sergo_Nod' then
+	elseif sInfo.mynick == 'Sergo Nod' then
 		sInfo.myrank = 'Подполковник'
-	elseif sInfo.mynick == 'Rodrigo_Sedodge' then
+	elseif sInfo.mynick == 'Rodrigo Sedodge' then
 		sInfo.myrank = 'Майор'
-	elseif sInfo.mynick == 'Robert_Prado' then
+	elseif sInfo.mynick == 'Robert Prado' then
 		sInfo.myrank = 'Подполковник'
-	elseif sInfo.mynick == 'Alexey_Gallagher' then
+	elseif sInfo.mynick == 'Alexey Gallagher' then
 		sInfo.myrank = 'Полковник'
-	elseif sInfo.mynick == 'Bernhard_Rogge' then
+	elseif sInfo.mynick == 'Bernhard Rogge' then
 		sInfo.myrank = 'Подполковник'
-	elseif sInfo.mynick == 'Joseph_Jenkins' then
+	elseif sInfo.mynick == 'Joseph Jenkins' then
 		sInfo.myrank = 'Полковник'
-	elseif sInfo.mynick == 'Subaru_Snape' then
+	elseif sInfo.mynick == 'Subaru Snape' then
 		sInfo.myrank = 'Полковник'
-	elseif sInfo.mynick == 'Jerard_Presli' then
+	elseif sInfo.mynick == 'Jerard Presli' then
 		sInfo.myrank = 'Шериф'
 	end
   -- Если игрок нажал клавишу Esc то закрываем imgui окна и прячем курсор
