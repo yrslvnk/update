@@ -2,7 +2,7 @@
 
 -- Информация о скрипте
 script_name('lvpd-gov')        -- Указываем имя скрипта
-script_version(1.12) 					 -- Указываем версию скрипта
+script_version(1.13) 					 -- Указываем версию скрипта
 script_author('Henrich_Rogge') -- Указываем имя автора
 
 -- Библиотеки
@@ -183,8 +183,6 @@ function imgui.OnDrawFrame()
 					wait(5000)
 					sampSendChat('/gov [LVPD] Помните, ваша бдительность может спасти чью-то жизнь.')
 					wait(5000)
-					sampSendChat(string.format('/gov [LVPD] Берегите себя и своих близких. С уважением, %s LVPD - %s.', sInfo.myrank, sInfo.mynick))
-					wait(5000)
 					sampSendChat('/d OG, освободил волну.')
 				end)
       end
@@ -197,8 +195,6 @@ function imgui.OnDrawFrame()
 					sampSendChat('/gov [LVPD] Мы гарантируем Вам обучение высокого уровня по уникальной спец. программе \"New Training System\"')
 					wait(5000)
 					sampSendChat('/gov [LVPD] После обучения Вы получите все необходимые навыки. Подробности на оф. портале департамента.')
-					wait(5000)
-					sampSendChat(string.format('/gov [LVPD] Берегите себя и своих близких. С уважением, %s LVPD - %s.', sInfo.myrank, sInfo.mynick))
 					wait(5000)
 					sampSendChat('/d OG, освободил волну.')
 				end)
