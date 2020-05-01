@@ -2,7 +2,7 @@
 
 -- Информация о скрипте
 script_name('lvpd-gov')        -- Указываем имя скрипта
-script_version(1.13) 					 -- Указываем версию скрипта
+script_version(2.0) 					 -- Указываем версию скрипта
 script_author('Henrich_Rogge') -- Указываем имя автора
 
 -- Библиотеки
@@ -159,17 +159,17 @@ function imgui.OnDrawFrame()
 			imgui.Text(u8('Введите время говки в формате **:**, **:** и т. д.'))
 			imgui.InputText('##inputtext', wave)
 			imgui.Separator()
-			imgui.Text(u8('/d OG, занимаю волну гос. новостей на %s. Возражения на пдж. %s.'):format(u8:decode(wave.v), sInfo.myid))
-			if imgui.Button(u8('Занять гос. волну'), btn_size) then
-				sampSendChat(string.format('/d OG, занимаю волну гос. новостей на %s. Возражения на пдж. %s.', u8:decode(wave.v), sInfo.myid))
+			imgui.Text(u8('/d OG, гос. волна на %s занята?. Ответ можно дать на пейджер %s.'):format(u8:decode(wave.v), sInfo.MyId))
+			if imgui.Button(u8('Спросить свободна ли гос. волна'), btn_size) then
+				sampSendChat(string.format('/d OG, гос. волна на %s занята?. Ответ можно дать на пейджер %s.', u8:decode(wave.v), sInfo.MyId))
 			end
-			imgui.Text(u8('/d OG, возражений не поступило волна гос. новостей на %s за LVPD.'):format(u8:decode(wave.v)))
-			if imgui.Button(u8('Возражений не поступило'), btn_size) then
-				sampSendChat(string.format('/d OG, возражений не поступило волна гос. новостей на %s за LVPD.', u8:decode(wave.v)))
+			imgui.Text(u8('/d OG, гос. волна на %s занята за LVPD. Возражения на пейджер %s.'):format(u8:decode(wave.v), sInfo.MyId))
+			if imgui.Button(u8('Сообщить что гос. волна занята'), btn_size) then
+				sampSendChat(string.format('/d OG, гос. волна на %s занята за LVPD. Возражения на пейджер %s.', u8:decode(wave.v), sInfo.MyId))
 			end
-			imgui.Text(u8('/d OG, напоминаю, волна гос. новостей на %s за LVPD.'):format(u8:decode(wave.v)))
+			imgui.Text(u8('/d OG, напоминаю, гос. волна новостей на %s за LVPD.'):format(u8:decode(wave.v)))
 			if imgui.Button(u8('Напомнить о занятой гос. волне'), btn_size) then
-				sampSendChat(string.format('/d OG, напоминаю, волна гос. новостей на %s за LVPD.', u8:decode(wave.v)))
+				sampSendChat(string.format('/d OG, напоминаю, гос. волна новостей на %s за LVPD.', u8:decode(wave.v)))
 			end
 		elseif show == 2 then
 			local btn_size = imgui.ImVec2(-0.1, 49.5)
