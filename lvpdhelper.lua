@@ -1,11 +1,11 @@
 -- Copyright (c) 2021 Tur41ks Prod.
 
--- Информация о скрипте
-script_name('«LVPD-Helper»') 		-- Указываем имя скрипта
-script_version(3.1) 						-- Указываем версию скрипта BETA
-script_author('Henrich_Rogge') 	-- Указываем имя автора
+-- РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРєСЂРёРїС‚Рµ
+script_name('В«LVPD-HelperВ»') 		-- РЈРєР°Р·С‹РІР°РµРј РёРјСЏ СЃРєСЂРёРїС‚Р°
+script_version(3.1) 						-- РЈРєР°Р·С‹РІР°РµРј РІРµСЂСЃРёСЋ СЃРєСЂРёРїС‚Р° BETA
+script_author('Henrich_Rogge') 	-- РЈРєР°Р·С‹РІР°РµРј РёРјСЏ Р°РІС‚РѕСЂР°
 
--- Библиотеки
+-- Р‘РёР±Р»РёРѕС‚РµРєРё
 require 'lib.moonloader'
 require 'lib.sampfuncs'
 
@@ -28,7 +28,7 @@ imgui.ToggleButton = imadd.ToggleButton
 imgui.HotKey = imadd.HotKey
 ------------------
 
--- Переменные на всякий хлам
+-- РџРµСЂРµРјРµРЅРЅС‹Рµ РЅР° РІСЃСЏРєРёР№ С…Р»Р°Рј
 nick = ''
 reason = ''
 uninvite = false
@@ -36,14 +36,14 @@ invite = false
 tLastKeys = {} 
 --targetID = nil
 
--- Imgui переменные
+-- Imgui РїРµСЂРµРјРµРЅРЅС‹Рµ
 x, y = getScreenResolution()
 code_reason = imgui.ImBuffer(256)
 wave = imgui.ImBuffer(512)
 lectureStatus = 0
 show = 6
 
--- Лекции\шпоры
+-- Р›РµРєС†РёРё\С€РїРѕСЂС‹
 data = {
 	lecture = {
     string = '',
@@ -73,7 +73,7 @@ data = {
 	filename = '',
 }
 
--- Imgui окна
+-- Imgui РѕРєРЅР°
 window = {
 	['main'] = { bool = imgui.ImBool(false), cursor = true },
 	['shpora'] = { bool = imgui.ImBool(false), cursor = true },
@@ -81,38 +81,38 @@ window = {
 	['addtable'] = { bool = imgui.ImBool(false), cursor = true }
 }
 
--- Биндеры
+-- Р‘РёРЅРґРµСЂС‹
 binders = {
-	-- Клавишный биндер
+	-- РљР»Р°РІРёС€РЅС‹Р№ Р±РёРЅРґРµСЂ
 	bindtext    = imgui.ImBuffer(20480),
 	bindname    = imgui.ImBuffer(256),
 	bindselect  = nil,
-	-- Командный биндер
+	-- РљРѕРјР°РЅРґРЅС‹Р№ Р±РёРЅРґРµСЂ
 	cmdtext     = imgui.ImBuffer(20480),
 	cmdbuf      = imgui.ImBuffer(256),
 	cmdparams   = imgui.ImInt(0),
 	cmdselect   = nil
 }
 
--- Буфферы
+-- Р‘СѓС„С„РµСЂС‹
 buffers = {
-	-- Буффер запроса местоположения
+	-- Р‘СѓС„С„РµСЂ Р·Р°РїСЂРѕСЃР° РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ
 	location = {
 		seconds = imgui.ImInt(1),
 		id = imgui.ImInt(-1)
 	},
-	-- Буффер вызова в кабинет шерифа
+	-- Р‘СѓС„С„РµСЂ РІС‹Р·РѕРІР° РІ РєР°Р±РёРЅРµС‚ С€РµСЂРёС„Р°
 	call = {
 		minutes = imgui.ImInt(1),
 		id = imgui.ImInt(-1)
 	},
-	-- Буффер для выдачи наряда
+	-- Р‘СѓС„С„РµСЂ РґР»СЏ РІС‹РґР°С‡Рё РЅР°СЂСЏРґР°
 	outfit = {
 		reason = imgui.ImBuffer(256),
 		circles = imgui.ImInt(1),
 		id = imgui.ImInt(-1)
 	},
-	-- Буффер для выдачи выговора
+	-- Р‘СѓС„С„РµСЂ РґР»СЏ РІС‹РґР°С‡Рё РІС‹РіРѕРІРѕСЂР°
 	rebuke = {
 		reason = imgui.ImBuffer(256),
 		type = imgui.ImBuffer(256),
@@ -120,7 +120,7 @@ buffers = {
 	}
 }
 
--- Сессионные настройки
+-- РЎРµСЃСЃРёРѕРЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 sInfo = {
 	WorkingDay = false,
 	VehicleId = nil,
@@ -131,9 +131,9 @@ sInfo = {
 	Nick = ''
 }
 
--- Настройки
+-- РќР°СЃС‚СЂРѕР№РєРё
 pInfo = {
-	-- Основные настройки
+	-- РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 	options = {
 		pg = false,
 		tar = 'YouTag',
@@ -142,65 +142,65 @@ pInfo = {
 		clist = 0,
 		advertisement = true
 	},
-	-- Счетчик онлайна
+	-- РЎС‡РµС‚С‡РёРє РѕРЅР»Р°Р№РЅР°
 	onlineTimer = {
 		date = 0,
 		time = tonumber(0),
 		workTime = tonumber(0),
 		dayAFK = 0
 	},
-	-- Счетчик арестов, штрафов.
+	-- РЎС‡РµС‚С‡РёРє Р°СЂРµСЃС‚РѕРІ, С€С‚СЂР°С„РѕРІ.
 	dayCounter = {
 		arrested = 0,
 		tickets = 0
 	}
 }
 
--- Клавиши подтверждения\отмены
+-- РљР»Р°РІРёС€Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ\РѕС‚РјРµРЅС‹
 config_keys = {
 	punaccept = { v = {key.VK_F12}}
 }
 
--- Командный биндер
+-- РљРѕРјР°РЅРґРЅС‹Р№ Р±РёРЅРґРµСЂ
 cmd_binder = {}
 
--- Клавишный биндер
+-- РљР»Р°РІРёС€РЅС‹Р№ Р±РёРЅРґРµСЂ
 tBindList = {}
 
--- Лог обновлений
+-- Р›РѕРі РѕР±РЅРѕРІР»РµРЅРёР№
 updatesInfo = {
   version = thisScript().version,
-  type = 'Внеплановое обновление', -- Плановое обновление, Промежуточное обновление, Внеплановое обновление, Фикс
+  type = 'Р’РЅРµРїР»Р°РЅРѕРІРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ', -- РџР»Р°РЅРѕРІРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ, РџСЂРѕРјРµР¶СѓС‚РѕС‡РЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ, Р’РЅРµРїР»Р°РЅРѕРІРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ, Р¤РёРєСЃ
   date = '16.12.2020',
   list = {
-		{ 'Возвращен доступ к скрипту семьи Sedodge;' }
+		{ 'Р’РѕР·РІСЂР°С‰РµРЅ РґРѕСЃС‚СѓРї Рє СЃРєСЂРёРїС‚Сѓ СЃРµРјСЊРё Sedodge;' }
   }
 }
 
--- Рандомные сообщения
+-- Р Р°РЅРґРѕРјРЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ
 messages = {
-	{ 'А ты знал что у LVPD есть официальный Discord сервер для общения?', 'Теперь знаешь, подключайся вместе интереснее - https://discord.gg/JDvHZRV' },
-	{ 'Ключи можно брать только при аресте. После ареста - сдаешь ключи штабному офицеру.', 'Если тебе нужен ключ для ареста тебе нужно будет подойти к штабному офицеру.' }
+	{ 'Рђ С‚С‹ Р·РЅР°Р» С‡С‚Рѕ Сѓ LVPD РµСЃС‚СЊ РѕС„РёС†РёР°Р»СЊРЅС‹Р№ Discord СЃРµСЂРІРµСЂ РґР»СЏ РѕР±С‰РµРЅРёСЏ?', 'РўРµРїРµСЂСЊ Р·РЅР°РµС€СЊ, РїРѕРґРєР»СЋС‡Р°Р№СЃСЏ РІРјРµСЃС‚Рµ РёРЅС‚РµСЂРµСЃРЅРµРµ - https://discord.gg/JDvHZRV' },
+	{ 'РљР»СЋС‡Рё РјРѕР¶РЅРѕ Р±СЂР°С‚СЊ С‚РѕР»СЊРєРѕ РїСЂРё Р°СЂРµСЃС‚Рµ. РџРѕСЃР»Рµ Р°СЂРµСЃС‚Р° - СЃРґР°РµС€СЊ РєР»СЋС‡Рё С€С‚Р°Р±РЅРѕРјСѓ РѕС„РёС†РµСЂСѓ.', 'Р•СЃР»Рё С‚РµР±Рµ РЅСѓР¶РµРЅ РєР»СЋС‡ РґР»СЏ Р°СЂРµСЃС‚Р° С‚РµР±Рµ РЅСѓР¶РЅРѕ Р±СѓРґРµС‚ РїРѕРґРѕР№С‚Рё Рє С€С‚Р°Р±РЅРѕРјСѓ РѕС„РёС†РµСЂСѓ.' }
 }
 
 function main()
-	-- Проверяем загружен ли sampfuncs и SAMP если не загружены - отключаем скрипт
+	-- РџСЂРѕРІРµСЂСЏРµРј Р·Р°РіСЂСѓР¶РµРЅ Р»Рё sampfuncs Рё SAMP РµСЃР»Рё РЅРµ Р·Р°РіСЂСѓР¶РµРЅС‹ - РѕС‚РєР»СЋС‡Р°РµРј СЃРєСЂРёРїС‚
 	if not isSampfuncsLoaded() or not isSampLoaded() then 
 		return 
 	end
-	-- Проверяем директории, если нужно создаем
+	-- РџСЂРѕРІРµСЂСЏРµРј РґРёСЂРµРєС‚РѕСЂРёРё, РµСЃР»Рё РЅСѓР¶РЅРѕ СЃРѕР·РґР°РµРј
 	local directoryes = { 'LVPD-Helper', 'LVPD-Helper/lectures', 'LVPD-Helper/shpores' }
 	for k, v in pairs(directoryes) do
 		if not doesDirectoryExist('moonloader/'..v) then 
 			createDirectory('moonloader/'..v) 
 		end
 	end
-	-- Проверяем загружен ли SA-MP
+	-- РџСЂРѕРІРµСЂСЏРµРј Р·Р°РіСЂСѓР¶РµРЅ Р»Рё SA-MP
 	while not isSampAvailable() do
 		wait(0) 
 	end
-	-- Загрузка сохраненной информации
-	-- Клавиша подтверждения
+	-- Р—Р°РіСЂСѓР·РєР° СЃРѕС…СЂР°РЅРµРЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё
+	-- РљР»Р°РІРёС€Р° РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ
 	if not doesFileExist('moonloader/LVPD-Helper/keys.json') then
 		local file = io.open('moonloader/LVPD-Helper/keys.json', 'w')
 		file:write(encodeJson(config_keys))
@@ -210,7 +210,7 @@ function main()
 		config_keys = decodeJson(file:read('*a'))
 	end
 	saveData(config_keys, 'moonloader/LVPD-Helper/keys.json')
-	-- Командный биндер
+	-- РљРѕРјР°РЅРґРЅС‹Р№ Р±РёРЅРґРµСЂ
 	if doesFileExist('moonloader/LVPD-Helper/cmdbinder.json') then
 		local file = io.open('moonloader/LVPD-Helper/cmdbinder.json', 'r')
 		if file then
@@ -218,7 +218,7 @@ function main()
 		end
 	end
 	saveData(cmd_binder, 'moonloader/LVPD-Helper/cmdbinder.json')
-	-- Настройки скрипта
+	-- РќР°СЃС‚СЂРѕР№РєРё СЃРєСЂРёРїС‚Р°
 	if not doesFileExist('moonloader/LVPD-Helper/config.json') then 
     io.open('moonloader/LVPD-Helper/config.json', 'w'):close()
   else 
@@ -226,7 +226,7 @@ function main()
 		pInfo = decodeJson(file:read('*a'))
   end
 	saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
-	-- Клавишный биндер
+	-- РљР»Р°РІРёС€РЅС‹Р№ Р±РёРЅРґРµСЂ
 	if doesFileExist('moonloader/LVPD-Helper/buttonbinder.json') then
 		local file = io.open('moonloader/LVPD-Helper/buttonbinder.json', 'r')
 		if file then
@@ -240,20 +240,20 @@ function main()
 			v.time = nil 
 		end
 		if v.name == nil then 
-			v.name = 'Бинд'..k 
+			v.name = 'Р‘РёРЅРґ'..k 
 		end
 		v.text = v.text:gsub('%[enter%]', ''):gsub('{noenter}', '{noe}')
 	end
 	saveData(tBindList, 'moonloader/LVPD-Helper/buttonbinder.json')
-	-- Если файла шпоры нет - создаем файл и записываем туда начальную информацию
+	-- Р•СЃР»Рё С„Р°Р№Р»Р° С€РїРѕСЂС‹ РЅРµС‚ - СЃРѕР·РґР°РµРј С„Р°Р№Р» Рё Р·Р°РїРёСЃС‹РІР°РµРј С‚СѓРґР° РЅР°С‡Р°Р»СЊРЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ
 	if not doesFileExist('moonloader/LVPD-Helper/shpores/fisrtshpora.txt') then
 		local file = io.open('moonloader/LVPD-Helper/shpores/fisrtshpora.txt', 'w')
-		file:write('Вы пока что не настроили шпору.\nЧто бы вставить сюда свой текст вам нужно выполнить ряд дейтсвий:\n1. Открыть папку LVPD-Helper которая находится в папке moonloader\n2. Открыть файл fisrtshpora.txt любым блокнотом\n3. Изменить текст в нем на какой вам нужен\n4. Сохранить файл')
+		file:write('Р’С‹ РїРѕРєР° С‡С‚Рѕ РЅРµ РЅР°СЃС‚СЂРѕРёР»Рё С€РїРѕСЂСѓ.\nР§С‚Рѕ Р±С‹ РІСЃС‚Р°РІРёС‚СЊ СЃСЋРґР° СЃРІРѕР№ С‚РµРєСЃС‚ РІР°Рј РЅСѓР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ СЂСЏРґ РґРµР№С‚СЃРІРёР№:\n1. РћС‚РєСЂС‹С‚СЊ РїР°РїРєСѓ LVPD-Helper РєРѕС‚РѕСЂР°СЏ РЅР°С…РѕРґРёС‚СЃСЏ РІ РїР°РїРєРµ moonloader\n2. РћС‚РєСЂС‹С‚СЊ С„Р°Р№Р» fisrtshpora.txt Р»СЋР±С‹Рј Р±Р»РѕРєРЅРѕС‚РѕРј\n3. РР·РјРµРЅРёС‚СЊ С‚РµРєСЃС‚ РІ РЅРµРј РЅР° РєР°РєРѕР№ РІР°Рј РЅСѓР¶РµРЅ\n4. РЎРѕС…СЂР°РЅРёС‚СЊ С„Р°Р№Р»')
 		file:close()
 	end
-	-- Регистрируем клавишу подтверждения
+	-- Р РµРіРёСЃС‚СЂРёСЂСѓРµРј РєР»Р°РІРёС€Сѓ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ
 	punacceptbind = rkeys.registerHotKey(config_keys.punaccept.v, true, punaccept)
-	-- Регистрируем команды на функции
+	-- Р РµРіРёСЃС‚СЂРёСЂСѓРµРј РєРѕРјР°РЅРґС‹ РЅР° С„СѓРЅРєС†РёРё
 	sampRegisterChatCommand('shpora', function()
 		window['shpora'].bool.v = not window['shpora'].bool.v
 	end)
@@ -269,8 +269,8 @@ function main()
 	sampRegisterChatCommand('cn', cmd_cn)
 	sampRegisterChatCommand('r', cmd_r)
 	sampRegisterChatCommand('f', cmd_f)
-	-- Обновляем сессионные настройки
-	-- Проверяем зашёл ли игрок на сервер
+	-- РћР±РЅРѕРІР»СЏРµРј СЃРµСЃСЃРёРѕРЅРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
+	-- РџСЂРѕРІРµСЂСЏРµРј Р·Р°С€С‘Р» Р»Рё РёРіСЂРѕРє РЅР° СЃРµСЂРІРµСЂ
 	while not sampIsLocalPlayerSpawned() do 
 		wait(0) 
 	end
@@ -278,15 +278,15 @@ function main()
 	sInfo.Nick = sampGetPlayerNickname(sInfo.MyId)
 	sInfo.updateAFK = os.time()
 	sInfo.AuthTime = os.date('%d.%m.%y %H:%M:%S') 
-	-- Инициализируем функции
+	-- РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј С„СѓРЅРєС†РёРё
 	registerCommandsBinder()
 	apply_custom_style()
 	random_messages()
 	onlineTimer()
 	update()
-	-- Когда инициализированы всё функции то сообщаем, что скрипт загружен
-	stext('Скрипт успешно загружен! Открыть меню скрипта - /sw')
-	-- Сбрасываем счетчики каждые 24 часа
+	-- РљРѕРіРґР° РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅС‹ РІСЃС‘ С„СѓРЅРєС†РёРё С‚Рѕ СЃРѕРѕР±С‰Р°РµРј, С‡С‚Рѕ СЃРєСЂРёРїС‚ Р·Р°РіСЂСѓР¶РµРЅ
+	stext('РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ! РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ СЃРєСЂРёРїС‚Р° - /sw')
+	-- РЎР±СЂР°СЃС‹РІР°РµРј СЃС‡РµС‚С‡РёРєРё РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
 	if os.date('%a') ~= pInfo.onlineTimer.date and tonumber(os.date('%H')) > 4 then
 		pInfo.onlineTimer.date = os.date('%a')
 		pInfo.onlineTimer.time = tonumber(0)
@@ -296,17 +296,17 @@ function main()
 		pInfo.dayCounter.arrested = tonumber(0)
 		saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
 	end
-	-- Бесконечный цикл
+	-- Р‘РµСЃРєРѕРЅРµС‡РЅС‹Р№ С†РёРєР»
 	while true do 
 		wait(0)
-		-- Проверяем скин нашего персонажа, и переключаем значения в переменной
+		-- РџСЂРѕРІРµСЂСЏРµРј СЃРєРёРЅ РЅР°С€РµРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°, Рё РїРµСЂРµРєР»СЋС‡Р°РµРј Р·РЅР°С‡РµРЅРёСЏ РІ РїРµСЂРµРјРµРЅРЅРѕР№
 		sInfo.MySkin = getCharModel(PLAYER_PED)
 		if sInfo.MySkin == 280 or sInfo.MySkin == 265 or sInfo.MySkin == 266 or sInfo.MySkin == 267 or sInfo.MySkin == 281 or sInfo.MySkin == 282 or sInfo.MySkin == 288 or sInfo.MySkin == 284 or sInfo.MySkin == 285 or sInfo.MySkin == 304 or sInfo.MySkin == 305 or sInfo.MySkin == 306 or sInfo.MySkin == 307 or sInfo.MySkin == 309 or sInfo.MySkin == 283 or sInfo.MySkin == 303 then 
 			sInfo.WorkingDay = true
 		else
 			sInfo.WorkingDay = false
 		end
-		-- Imgui окна
+		-- Imgui РѕРєРЅР°
 		local ImguiWindowSettings = {false, false}
 		for k, settings in pairs(window) do
 			if settings.bool.v and ImguiWindowSettings[1] == false then
@@ -324,7 +324,7 @@ function main()
 		if ImguiWindowSettings[2] == false then
 			imgui.ShowCursor = false
 		end
-    -- Активация чата на Т
+    -- РђРєС‚РёРІР°С†РёСЏ С‡Р°С‚Р° РЅР° Рў
     if isKeyJustPressed(VK_T) and not sampIsDialogActive() and not sampIsScoreboardOpen() and not isSampfuncsConsoleActive() then
       sampSetChatInputEnabled(true)
     end
@@ -332,87 +332,87 @@ function main()
 end
 
 function imgui.OnDrawFrame()
-	-- Основное imgui окно
+	-- РћСЃРЅРѕРІРЅРѕРµ imgui РѕРєРЅРѕ
 	if window['main'].bool.v then
-		-- Устанавливаем размер окна
+		-- РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ РѕРєРЅР°
 		imgui.SetNextWindowSize(imgui.ImVec2(700, 400), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(x / 2, y / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
-		-- Формируем окно и указываем имя 
-		imgui.Begin(u8(thisScript().name..' | Главное меню | Version: '..thisScript().version), window['main'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.MenuBar + imgui.WindowFlags.NoResize)
-		-- Формируем меню
+		-- Р¤РѕСЂРјРёСЂСѓРµРј РѕРєРЅРѕ Рё СѓРєР°Р·С‹РІР°РµРј РёРјСЏ 
+		imgui.Begin(u8(thisScript().name..' | Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ | Version: '..thisScript().version), window['main'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.MenuBar + imgui.WindowFlags.NoResize)
+		-- Р¤РѕСЂРјРёСЂСѓРµРј РјРµРЅСЋ
 		if imgui.BeginMenuBar() then
-			if imgui.BeginMenu(u8('Основное')) then
-				if imgui.MenuItem(u8('Главное меню')) then
+			if imgui.BeginMenu(u8('РћСЃРЅРѕРІРЅРѕРµ')) then
+				if imgui.MenuItem(u8('Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ')) then
 					binderclose()
 					show = 6
-				elseif imgui.MenuItem(u8('Настройки')) then
+				elseif imgui.MenuItem(u8('РќР°СЃС‚СЂРѕР№РєРё')) then
 					binderclose()
 					show = 1 
 				end
 				imgui.EndMenu()
 			end
-			if imgui.BeginMenu(u8('Действия')) then
-				if imgui.MenuItem(u8('Лекции')) then
+			if imgui.BeginMenu(u8('Р”РµР№СЃС‚РІРёСЏ')) then
+				if imgui.MenuItem(u8('Р›РµРєС†РёРё')) then
 					binderclose()
 					show = 2
-				elseif imgui.MenuItem(u8('Занять гос. волну')) then
+				elseif imgui.MenuItem(u8('Р—Р°РЅСЏС‚СЊ РіРѕСЃ. РІРѕР»РЅСѓ')) then
 					binderclose()
 					show = 10 
 				end
 				imgui.EndMenu()
 			end
-			if imgui.BeginMenu(u8('Действие с игроком')) then
-				if imgui.MenuItem(u8('Выдать выговор')) then
+			if imgui.BeginMenu(u8('Р”РµР№СЃС‚РІРёРµ СЃ РёРіСЂРѕРєРѕРј')) then
+				if imgui.MenuItem(u8('Р’С‹РґР°С‚СЊ РІС‹РіРѕРІРѕСЂ')) then
 					binderclose()
 					show = 8
-				elseif imgui.MenuItem(u8('Выдать наряд')) then
+				elseif imgui.MenuItem(u8('Р’С‹РґР°С‚СЊ РЅР°СЂСЏРґ')) then
 					binderclose()
 					show = 9
-				elseif imgui.MenuItem(u8('Вызвать игрока')) then
+				elseif imgui.MenuItem(u8('Р’С‹Р·РІР°С‚СЊ РёРіСЂРѕРєР°')) then
 					binderclose()
 					show = 11
-				elseif imgui.MenuItem(u8('Запросить местоположение')) then
+				elseif imgui.MenuItem(u8('Р—Р°РїСЂРѕСЃРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ')) then
 					binderclose()
 					show = 12
 				end
 				imgui.EndMenu()
 			end
-			if imgui.BeginMenu(u8('Полезное')) then
-				if imgui.MenuItem(u8('Шпора')) then 
+			if imgui.BeginMenu(u8('РџРѕР»РµР·РЅРѕРµ')) then
+				if imgui.MenuItem(u8('РЁРїРѕСЂР°')) then 
 					window['shpora'].bool.v = not window['shpora'].bool.v
-				elseif imgui.MenuItem(u8('Биндер')) then
+				elseif imgui.MenuItem(u8('Р‘РёРЅРґРµСЂ')) then
 					window['binder'].bool.v = true
 					show = 4
 				end
 				imgui.EndMenu()
 			end
-			if imgui.BeginMenu(u8('Информация')) then
-				if imgui.MenuItem(u8('Авторы')) then
+			if imgui.BeginMenu(u8('РРЅС„РѕСЂРјР°С†РёСЏ')) then
+				if imgui.MenuItem(u8('РђРІС‚РѕСЂС‹')) then
 					binderclose()
 					show = 3
-				elseif imgui.MenuItem(u8('Команды')) then
+				elseif imgui.MenuItem(u8('РљРѕРјР°РЅРґС‹')) then
 					binderclose()
 					show = 7
 				end
 				imgui.EndMenu()
 			end
-			if imgui.BeginMenu(u8('Остальное')) then
-				if imgui.MenuItem(u8('Перезагрузить скрипт')) then
+			if imgui.BeginMenu(u8('РћСЃС‚Р°Р»СЊРЅРѕРµ')) then
+				if imgui.MenuItem(u8('РџРµСЂРµР·Р°РіСЂСѓР·РёС‚СЊ СЃРєСЂРёРїС‚')) then
 					lua_thread.create(function()
-						stext('Перезагружаемся...')
+						stext('РџРµСЂРµР·Р°РіСЂСѓР¶Р°РµРјСЃСЏ...')
 						binderclose()
 						window['main'].bool.v = not window['main'].bool.v
 						wait(1000)
 						thisScript():reload()
 					end)
 				end
-				if imgui.MenuItem(u8('Отключить скрипт')) then
+				if imgui.MenuItem(u8('РћС‚РєР»СЋС‡РёС‚СЊ СЃРєСЂРёРїС‚')) then
 					lua_thread.create(function()
-						stext('Отключаю скрипт...')
+						stext('РћС‚РєР»СЋС‡Р°СЋ СЃРєСЂРёРїС‚...')
 						binderclose()
 						window['main'].bool.v = not window['main'].bool.v
 						wait(1000)
-						stext('Скрипт успешно отключен!')
+						stext('РЎРєСЂРёРїС‚ СѓСЃРїРµС€РЅРѕ РѕС‚РєР»СЋС‡РµРЅ!')
 						thisScript():unload()
 					end)
 				end
@@ -427,15 +427,15 @@ function imgui.OnDrawFrame()
 			local clistbuffer = imgui.ImInt(pInfo.options.clist)
 			local pg 					= imgui.ImBool(pInfo.options.pg)
 			local advert      = imgui.ImBool(pInfo.options.advertisement)
-			-- Функция настройки Авто-Тега
+			-- Р¤СѓРЅРєС†РёСЏ РЅР°СЃС‚СЂРѕР№РєРё РђРІС‚Рѕ-РўРµРіР°
 			if imgui.BeginChild('##1', imgui.ImVec2(320, 90)) then
-				imgui.CentrText(u8('Настройка авто-тега'))
-				if imgui.ToggleButton(u8('Использовать авто-тег'), tagb) then 
+				imgui.CentrText(u8('РќР°СЃС‚СЂРѕР№РєР° Р°РІС‚Рѕ-С‚РµРіР°'))
+				if imgui.ToggleButton(u8('РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°РІС‚Рѕ-С‚РµРі'), tagb) then 
 					pInfo.options.tarb = not pInfo.options.tarb 
 					saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
-				end; imgui.SameLine(); imgui.Text(u8('Использовать авто-тег'))
+				end; imgui.SameLine(); imgui.Text(u8('РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°РІС‚Рѕ-С‚РµРі'))
 				if tagb.v then
-					if imgui.InputText(u8('Введите свой тег'), tagf) then 
+					if imgui.InputText(u8('Р’РІРµРґРёС‚Рµ СЃРІРѕР№ С‚РµРі'), tagf) then 
 						pInfo.options.tar = u8:decode(tagf.v) 
 						saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
 					end
@@ -443,16 +443,16 @@ function imgui.OnDrawFrame()
 				imgui.EndChild()
 			end
 			imgui.SameLine()
-			-- Функция настройки Авто-Клиста
+			-- Р¤СѓРЅРєС†РёСЏ РЅР°СЃС‚СЂРѕР№РєРё РђРІС‚Рѕ-РљР»РёСЃС‚Р°
 			if imgui.BeginChild('##2', imgui.ImVec2(320, 90)) then
-				imgui.CentrText(u8('Настройка авто-клиста'))
-				if imgui.ToggleButton(u8('Использовать авто-клист'), clistb) then 
+				imgui.CentrText(u8('РќР°СЃС‚СЂРѕР№РєР° Р°РІС‚Рѕ-РєР»РёСЃС‚Р°'))
+				if imgui.ToggleButton(u8('РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°РІС‚Рѕ-РєР»РёСЃС‚'), clistb) then 
 					pInfo.options.clistb = not pInfo.options.clistb
 					saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
-				end; imgui.SameLine(); imgui.Text(u8('Использовать авто-клист')); imgui.SameLine(); imgui.TextQuestion(u8('С защитой от троллинга'))
+				end; imgui.SameLine(); imgui.Text(u8('РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°РІС‚Рѕ-РєР»РёСЃС‚')); imgui.SameLine(); imgui.TextQuestion(u8('РЎ Р·Р°С‰РёС‚РѕР№ РѕС‚ С‚СЂРѕР»Р»РёРЅРіР°'))
 				if clistb.v then
 					imgui.PushItemWidth(195)
-					if imgui.SliderInt(u8('Выберите значение'), clistbuffer, 0, 33) then 
+					if imgui.SliderInt(u8('Р’С‹Р±РµСЂРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ'), clistbuffer, 0, 33) then 
 						pInfo.options.clist = clistbuffer.v
 						saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
 					end
@@ -463,29 +463,29 @@ function imgui.OnDrawFrame()
 				if imgui.ToggleButton(u8('pg'), pg) then 
 					pInfo.options.pg = not pInfo.options.pg
 					saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
-				end; imgui.SameLine(); imgui.Text(u8('Отыгровки выдачи погонов')); imgui.SameLine(); imgui.TextQuestion(u8('Для 11+'))
+				end; imgui.SameLine(); imgui.Text(u8('РћС‚С‹РіСЂРѕРІРєРё РІС‹РґР°С‡Рё РїРѕРіРѕРЅРѕРІ')); imgui.SameLine(); imgui.TextQuestion(u8('Р”Р»СЏ 11+'))
 				if imgui.ToggleButton(u8('das'), advert) then 
 					pInfo.options.advertisement = not pInfo.options.advertisement
 					saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
-				end; imgui.SameLine(); imgui.Text(u8('Полезная реклама'))
+				end; imgui.SameLine(); imgui.Text(u8('РџРѕР»РµР·РЅР°СЏ СЂРµРєР»Р°РјР°'))
 				imgui.EndChild()
 			end
 			imgui.SameLine()
 			if imgui.BeginChild('##10312', imgui.ImVec2(345, 100)) then
 				if imgui.HotKey('##punaccept', config_keys.punaccept, tLastKeys, 50) then
 					rkeys.changeHotKey(punacceptbind, config_keys.punaccept.v)
-					stext('Клавиша успешно изменена!')
+					stext('РљР»Р°РІРёС€Р° СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅР°!')
 					saveData(config_keys, 'moonloader/LVPD-Helper/keys.json')
-				end; imgui.SameLine(); imgui.Text(u8('Клавиша подтверждения'))
+				end; imgui.SameLine(); imgui.Text(u8('РљР»Р°РІРёС€Р° РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ'))
 				imgui.EndChild()
 			end
 		elseif show == 2 then
 			imgui.PushItemWidth(150)
 			if data.lecture.string == '' then
-				-- Загружаем список лекций и помещаем в таблицу
+				-- Р—Р°РіСЂСѓР¶Р°РµРј СЃРїРёСЃРѕРє Р»РµРєС†РёР№ Рё РїРѕРјРµС‰Р°РµРј РІ С‚Р°Р±Р»РёС†Сѓ
 				data.combo.lecture.v = 0
 				data.lecture.list = {}
-				data.lecture.string = u8('Не выбрано\0')
+				data.lecture.string = u8('РќРµ РІС‹Р±СЂР°РЅРѕ\0')
 				for file in lfs.dir(getWorkingDirectory()..'\\LVPD-Helper\\lectures') do
 					if file ~= '.' and file ~= '..' then
 						local attr = lfs.attributes(getWorkingDirectory()..'\\LVPD-Helper\\lectures\\'..file)
@@ -498,7 +498,7 @@ function imgui.OnDrawFrame()
 				if #data.lecture.list == 0 then
 					name = 'firstlecture.txt'
 					local file = io.open('moonloader/LVPD-Helper/lectures/firstlecture.txt', 'w+')
-					file:write('Обычное сообщение\n/s Сообщение с криком\n/b Сообщение в b чат\n/rb Сообщение в рацию\n/w Сообщение шепотом')
+					file:write('РћР±С‹С‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ\n/s РЎРѕРѕР±С‰РµРЅРёРµ СЃ РєСЂРёРєРѕРј\n/b РЎРѕРѕР±С‰РµРЅРёРµ РІ b С‡Р°С‚\n/rb РЎРѕРѕР±С‰РµРЅРёРµ РІ СЂР°С†РёСЋ\n/w РЎРѕРѕР±С‰РµРЅРёРµ С€РµРїРѕС‚РѕРј')
 					file:flush()
 					file:close()
 					file = nil
@@ -507,51 +507,51 @@ function imgui.OnDrawFrame()
 			end
 			imgui.Columns(2, _, false)
 			imgui.SetColumnWidth(-1, 200)
-			imgui.Text(u8('Выберите файл лекции'))
+			imgui.Text(u8('Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» Р»РµРєС†РёРё'))
 			imgui.Combo('##lec', data.combo.lecture, data.lecture.string)
-			if imgui.Button(u8('Загрузить лекцию')) then
+			if imgui.Button(u8('Р—Р°РіСЂСѓР·РёС‚СЊ Р»РµРєС†РёСЋ')) then
 				if data.combo.lecture.v > 0 then
 					local file = io.open('moonloader/LVPD-Helper/lectures/'..data.lecture.list[data.combo.lecture.v], 'r+')
 					if file == nil then 
-						atext('Файл не найден!')
+						atext('Р¤Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ!')
 					else
 						data.lecture.text = {} 
 						for line in io.lines('moonloader/LVPD-Helper/lectures/'..data.lecture.list[data.combo.lecture.v]) do
 							table.insert(data.lecture.text, line)
 						end
 						if #data.lecture.text > 0 then
-							atext('Файл лекции успешно загружен!')
+							atext('Р¤Р°Р№Р» Р»РµРєС†РёРё СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ!')
 						else 
-							atext('Файл лекции пуст!') 
+							atext('Р¤Р°Р№Р» Р»РµРєС†РёРё РїСѓСЃС‚!') 
 						end
 					end
 					file:close()
 					file = nil
 				else 
-					atext('Выберите файл лекции!') 
+					atext('Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» Р»РµРєС†РёРё!') 
 				end
 			end
 			imgui.NextColumn()
 			imgui.PushItemWidth(200)
-			imgui.Text(u8('Выберите задержку (в миллисекундах)'))
+			imgui.Text(u8('Р’С‹Р±РµСЂРёС‚Рµ Р·Р°РґРµСЂР¶РєСѓ (РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С…)'))
 			imgui.InputInt('##inputlec', data.lecture.time)
 			if lectureStatus == 0 then
-				if imgui.Button(u8('Запустить лекцию')) then
+				if imgui.Button(u8('Р—Р°РїСѓСЃС‚РёС‚СЊ Р»РµРєС†РёСЋ')) then
 					if #data.lecture.text == 0 then 
-						stext('Файл лекции не загружен!') 
+						stext('Р¤Р°Р№Р» Р»РµРєС†РёРё РЅРµ Р·Р°РіСЂСѓР¶РµРЅ!') 
 						return 
 					end
 					if data.lecture.time.v == 0 then 
-						stext('Время не может быть равно 0!') 
+						stext('Р’СЂРµРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЂР°РІРЅРѕ 0!') 
 						return 
 					end
 					if lectureStatus ~= 0 then 
-						stext('Лекция уже запущена/на паузе.') 
+						stext('Р›РµРєС†РёСЏ СѓР¶Рµ Р·Р°РїСѓС‰РµРЅР°/РЅР° РїР°СѓР·Рµ.') 
 						return 
 					end
 					local ltext = data.lecture.text
 					local ltime = data.lecture.time.v
-					atext('Вывод лекции начался.')
+					atext('Р’С‹РІРѕРґ Р»РµРєС†РёРё РЅР°С‡Р°Р»СЃСЏ.')
 					lectureStatus = 1
 					lua_thread.create(function()
 						while true do
@@ -565,7 +565,7 @@ function imgui.OnDrawFrame()
 							if lectureStatus > #ltext then
 								wait(150)
 								lectureStatus = 0
-								stext('Вывод лекции завершен.')
+								stext('Р’С‹РІРѕРґ Р»РµРєС†РёРё Р·Р°РІРµСЂС€РµРЅ.')
 								break 
 							end
 							wait(tonumber(ltime))
@@ -573,35 +573,35 @@ function imgui.OnDrawFrame()
 					end)
 				end
 			else
-				if imgui.Button(u8:encode(string.format('%s', lectureStatus > 0 and 'Пауза' or 'Возобновить'))) then
+				if imgui.Button(u8:encode(string.format('%s', lectureStatus > 0 and 'РџР°СѓР·Р°' or 'Р’РѕР·РѕР±РЅРѕРІРёС‚СЊ'))) then
 					if lectureStatus == 0 then 
-						stext('Лекция не запущена.') 
+						stext('Р›РµРєС†РёСЏ РЅРµ Р·Р°РїСѓС‰РµРЅР°.') 
 						return 
 					end
 					lectureStatus = lectureStatus * -1
 					if lectureStatus > 0 then 
-						stext('Лекция возобновлена.')
+						stext('Р›РµРєС†РёСЏ РІРѕР·РѕР±РЅРѕРІР»РµРЅР°.')
 					else 
-						stext('Лекция приостановлена.') 
+						stext('Р›РµРєС†РёСЏ РїСЂРёРѕСЃС‚Р°РЅРѕРІР»РµРЅР°.') 
 					end
 				end
 				imgui.SameLine()
-				if imgui.Button(u8('Стоп')) then
+				if imgui.Button(u8('РЎС‚РѕРї')) then
 					if lectureStatus == 0 then 
-						stext('Лекция не запущена.') 
+						stext('Р›РµРєС†РёСЏ РЅРµ Р·Р°РїСѓС‰РµРЅР°.') 
 						return 
 					end
 					lectureStatus = 0
-					stext('Вывод лекции прекращен.')
+					stext('Р’С‹РІРѕРґ Р»РµРєС†РёРё РїСЂРµРєСЂР°С‰РµРЅ.')
 				end
 			end
 			imgui.NextColumn()
 			imgui.Columns(1)
 			imgui.Separator()
-			imgui.Text(u8('Содержимое файла лекции:'))
+			imgui.Text(u8('РЎРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° Р»РµРєС†РёРё:'))
 			imgui.Spacing()
 			if #data.lecture.text == 0 then 
-				imgui.Text(u8('Файл не загружен/пуст!')) 
+				imgui.Text(u8('Р¤Р°Р№Р» РЅРµ Р·Р°РіСЂСѓР¶РµРЅ/РїСѓСЃС‚!')) 
 			end
 			for i = 1, #data.lecture.text do
 				imgui.Text(u8:encode(data.lecture.text[i]))
@@ -613,9 +613,9 @@ function imgui.OnDrawFrame()
 			imgui.NewLine()
 			imgui.CentrText('Script Version: '..thisScript().version)
 			imgui.NewLine()
-			imgui.CentrText(u8('Разработчик: Henrich Rogge'))
-			imgui.CentrText(u8('Тестер: Bernhard Rogge'))
-			imgui.CentrText(u8('Авторы: Henrich Rogge and Bernhard Rogge'))
+			imgui.CentrText(u8('Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: Henrich Rogge'))
+			imgui.CentrText(u8('РўРµСЃС‚РµСЂ: Bernhard Rogge'))
+			imgui.CentrText(u8('РђРІС‚РѕСЂС‹: Henrich Rogge and Bernhard Rogge'))
 		elseif show == 4 then
 			if imgui.BeginChild('##commandlist', imgui.ImVec2(170, 290)) then
 				for k, v in pairs(cmd_binder) do
@@ -632,32 +632,32 @@ function imgui.OnDrawFrame()
 			if imgui.BeginChild('##cmd_binderetting', imgui.ImVec2(500, 290)) then
 				for k, v in pairs(cmd_binder) do
 					if binders.cmdselect == k then
-						if imgui.BeginChild('##команд', imgui.ImVec2(110, 50)) then
+						if imgui.BeginChild('##РєРѕРјР°РЅРґ', imgui.ImVec2(110, 50)) then
 							imgui.PushItemWidth(105)
-							imgui.Text(u8('Введите команду:'))
-							imgui.InputText(u8('##Введите команду'), binders.cmdbuf)
+							imgui.Text(u8('Р’РІРµРґРёС‚Рµ РєРѕРјР°РЅРґСѓ:'))
+							imgui.InputText(u8('##Р’РІРµРґРёС‚Рµ РєРѕРјР°РЅРґСѓ'), binders.cmdbuf)
 						 	imgui.EndChild()
 						end
 						imgui.SameLine()
 						if imgui.BeginChild('##casd', imgui.ImVec2(170, 50)) then
 							imgui.PushItemWidth(165)
-							imgui.Text(u8('Введите кол-во параметров:'))
-							imgui.InputInt(u8('##Введи кол-во параметров'), binders.cmdparams, 0)
+							imgui.Text(u8('Р’РІРµРґРёС‚Рµ РєРѕР»-РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ:'))
+							imgui.InputInt(u8('##Р’РІРµРґРё РєРѕР»-РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ'), binders.cmdparams, 0)
 							imgui.EndChild()
 						end
-						imgui.Text(u8('Введите текст команды:'))
+						imgui.Text(u8('Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ РєРѕРјР°РЅРґС‹:'))
 						imgui.InputTextMultiline(u8('##cmdtext'), binders.cmdtext, imgui.ImVec2(470, 175))
-						if imgui.Button(u8('Сохранить команду'), imgui.ImVec2(130, 25)) then
+						if imgui.Button(u8('РЎРѕС…СЂР°РЅРёС‚СЊ РєРѕРјР°РЅРґСѓ'), imgui.ImVec2(130, 25)) then
 							sampUnregisterChatCommand(v.cmd)
 							v.cmd = u8:decode(binders.cmdbuf.v)
 							v.params = binders.cmdparams.v
 							v.text = u8:decode(binders.cmdtext.v)
 							saveData(cmd_binder, 'moonloader/LVPD-Helper/cmdbinder.json')
 							registerCommandsBinder()
-							stext('Команда успешно сохранена!')
+							stext('РљРѕРјР°РЅРґР° СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅР°!')
 						end
 						imgui.SameLine()
-						if imgui.Button(u8('Удалить команду##')..k, imgui.ImVec2(130, 25)) then
+						if imgui.Button(u8('РЈРґР°Р»РёС‚СЊ РєРѕРјР°РЅРґСѓ##')..k, imgui.ImVec2(130, 25)) then
 							sampUnregisterChatCommand(v.cmd)
 							binders.cmdselect = nil
 							binders.cmdbuf.v = ''
@@ -666,18 +666,18 @@ function imgui.OnDrawFrame()
 							table.remove(cmd_binder, k)
 							saveData(cmd_binder, 'moonloader/LVPD-Helper/cmdbinder.json')
 							registerCommandsBinder()
-							stext('Команда успешно удалена!')
+							stext('РљРѕРјР°РЅРґР° СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°!')
 						end
 					end
 				end
 				imgui.EndChild()
 			end
-			if imgui.Button(u8('Добавить команду'), imgui.ImVec2(170, 25)) then
+			if imgui.Button(u8('Р”РѕР±Р°РІРёС‚СЊ РєРѕРјР°РЅРґСѓ'), imgui.ImVec2(170, 25)) then
 				table.insert(cmd_binder, {cmd = '', params = 0, text = ''})
 				saveData(cmd_binder, 'moonloader/LVPD-Helper/cmdbinder.json')
 			end
 			imgui.SameLine(564)
-			if imgui.Button(u8('Клавишный биндер')) then
+			if imgui.Button(u8('РљР»Р°РІРёС€РЅС‹Р№ Р±РёРЅРґРµСЂ')) then
 				show = 5
 			end
 		elseif show == 5 then
@@ -696,13 +696,13 @@ function imgui.OnDrawFrame()
 					if binders.bindselect == k then
 						if imgui.BeginChild('##cmbdas', imgui.ImVec2(155, 50)) then
 							imgui.PushItemWidth(150)
-							imgui.Text(u8('Введите название бинда:'))
-							imgui.InputText('##Введите название бинда', binders.bindname)
+							imgui.Text(u8('Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р±РёРЅРґР°:'))
+							imgui.InputText('##Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Р±РёРЅРґР°', binders.bindname)
 							imgui.EndChild()
 						end
 						imgui.SameLine()
 						if imgui.BeginChild('##3123454', imgui.ImVec2(200, 50)) then
-							imgui.Text(u8('Клавиша:'))
+							imgui.Text(u8('РљР»Р°РІРёС€Р°:'))
 							if imgui.HotKey(u8('##HK').. k, v, tLastKeys, 55) then
 								if not rkeys.isHotKeyDefined(v.v) then
 									if rkeys.isHotKeyDefined(tLastKeys.v) then
@@ -714,17 +714,17 @@ function imgui.OnDrawFrame()
 							end
 							imgui.EndChild()
 						end
-						imgui.Text(u8('Введите текст бинда:'))
-						imgui.InputTextMultiline('##Введите текст бинда', binders.bindtext, imgui.ImVec2(470, 175))
-						if imgui.Button(u8('Сохранить бинд##')..k, imgui.ImVec2(110, 25)) then
-							stext('Бинд успешно сохранен!')
+						imgui.Text(u8('Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ Р±РёРЅРґР°:'))
+						imgui.InputTextMultiline('##Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ Р±РёРЅРґР°', binders.bindtext, imgui.ImVec2(470, 175))
+						if imgui.Button(u8('РЎРѕС…СЂР°РЅРёС‚СЊ Р±РёРЅРґ##')..k, imgui.ImVec2(110, 25)) then
+							stext('Р‘РёРЅРґ СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅ!')
 							v.name = u8:decode(binders.bindname.v)
 							v.text = u8:decode(binders.bindtext.v)
 							saveData(tBindList, 'moonloader/LVPD-Helper/buttonbinder.json')
 						end
 						imgui.SameLine()
-						if imgui.Button(u8('Удалить бинд##')..k, imgui.ImVec2(100, 25)) then
-							stext('Бинд успешно удален!')
+						if imgui.Button(u8('РЈРґР°Р»РёС‚СЊ Р±РёРЅРґ##')..k, imgui.ImVec2(100, 25)) then
+							stext('Р‘РёРЅРґ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ!')
 							table.remove(tBindList, k)
 							saveData(tBindList, 'moonloader/LVPD-Helper/buttonbinder.json')
 						end
@@ -732,169 +732,169 @@ function imgui.OnDrawFrame()
 				end
 				imgui.EndChild()
 			end
-			if imgui.Button(u8('Добавить клавишу'), imgui.ImVec2(170, 25)) then
-				tBindList[#tBindList + 1] = {text = '', v = {}, time = 0, name = 'Бинд'..#tBindList + 1}
+			if imgui.Button(u8('Р”РѕР±Р°РІРёС‚СЊ РєР»Р°РІРёС€Сѓ'), imgui.ImVec2(170, 25)) then
+				tBindList[#tBindList + 1] = {text = '', v = {}, time = 0, name = 'Р‘РёРЅРґ'..#tBindList + 1}
 				saveData(tBindList, 'moonloader/LVPD-Helper/buttonbinder.json')
 			end
 			imgui.SameLine(564)
-			if imgui.Button(u8('Командный биндер')) then
+			if imgui.Button(u8('РљРѕРјР°РЅРґРЅС‹Р№ Р±РёРЅРґРµСЂ')) then
 				show = 4
 			end
 		elseif show == 6 then
 			if imgui.BeginChild('##FirstW', imgui.ImVec2(327.5, 322), true, imgui.WindowFlags.VerticalScrollbar) then
-				imgui.CentrText(u8('Информация')) 
+				imgui.CentrText(u8('РРЅС„РѕСЂРјР°С†РёСЏ')) 
 				imgui.Separator()
-				imgui.Text(u8('Ник: %s[%d]'):format(sInfo.Nick, sInfo.MyId))
-				imgui.TextColoredRGB(string.format('Рабочий день: %s', sInfo.WorkingDay == true and '{00bf80}Начат' or '{ec3737}Окончен'))
-				imgui.Text(u8(('Время авторизации: %s'):format(sInfo.AuthTime)))
-				imgui.Text(u8('Отыграно за сегодня: %s'):format(secToTime(pInfo.onlineTimer.time)))
-				imgui.Text(u8('Из них на работе: %s'):format(secToTime(pInfo.onlineTimer.workTime)))
-				imgui.Text(u8('AFK за сегодня: %s'):format(secToTime(pInfo.onlineTimer.dayAFK)))
+				imgui.Text(u8('РќРёРє: %s[%d]'):format(sInfo.Nick, sInfo.MyId))
+				imgui.TextColoredRGB(string.format('Р Р°Р±РѕС‡РёР№ РґРµРЅСЊ: %s', sInfo.WorkingDay == true and '{00bf80}РќР°С‡Р°С‚' or '{ec3737}РћРєРѕРЅС‡РµРЅ'))
+				imgui.Text(u8(('Р’СЂРµРјСЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё: %s'):format(sInfo.AuthTime)))
+				imgui.Text(u8('РћС‚С‹РіСЂР°РЅРѕ Р·Р° СЃРµРіРѕРґРЅСЏ: %s'):format(secToTime(pInfo.onlineTimer.time)))
+				imgui.Text(u8('РР· РЅРёС… РЅР° СЂР°Р±РѕС‚Рµ: %s'):format(secToTime(pInfo.onlineTimer.workTime)))
+				imgui.Text(u8('AFK Р·Р° СЃРµРіРѕРґРЅСЏ: %s'):format(secToTime(pInfo.onlineTimer.dayAFK)))
 				imgui.EndChild()
 			end
 			imgui.SameLine()
 			if imgui.BeginChild('##TwoW', imgui.ImVec2(330, 322), true, imgui.WindowFlags.VerticalScrollbar) then
-				imgui.CentrText(u8('Статистика за день'))
+				imgui.CentrText(u8('РЎС‚Р°С‚РёСЃС‚РёРєР° Р·Р° РґРµРЅСЊ'))
 				imgui.Separator()
-				imgui.Text(u8('Преступников арестовано: %s'):format(pInfo.dayCounter.arrested))
-				imgui.Text(u8('Штрафов выписано: %s'):format(pInfo.dayCounter.tickets))
+				imgui.Text(u8('РџСЂРµСЃС‚СѓРїРЅРёРєРѕРІ Р°СЂРµСЃС‚РѕРІР°РЅРѕ: %s'):format(pInfo.dayCounter.arrested))
+				imgui.Text(u8('РЁС‚СЂР°С„РѕРІ РІС‹РїРёСЃР°РЅРѕ: %s'):format(pInfo.dayCounter.tickets))
 				imgui.EndChild()
 			end
 		elseif show == 7 then
-			imgui.BulletText(u8('/sw - Открыть меню скрипта.'))
-			imgui.BulletText(u8('/shpora - Открыть меню с шпорами.'))
-			imgui.BulletText(u8('/loc [id/nick] [seconds] - Запросить местоположение игрока.'))
-			imgui.BulletText(u8('/peresec [1/2/3] [reason] - Сообщить о пересечении нейтрального округа.'))
-			imgui.BulletText(u8('/cn [id] [0 - RP nick, 1 - NonRP nick] - Скопировать ник в буффер обмена.'))
-			imgui.BulletText(u8('/swupd - Просмотреть список обновления.'))
-			imgui.BulletText(u8('/r [Text] - Авто тег в рации.'))
-			imgui.BulletText(u8('/f [Text] - Авто тег в рации.'))
+			imgui.BulletText(u8('/sw - РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ СЃРєСЂРёРїС‚Р°.'))
+			imgui.BulletText(u8('/shpora - РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ СЃ С€РїРѕСЂР°РјРё.'))
+			imgui.BulletText(u8('/loc [id/nick] [seconds] - Р—Р°РїСЂРѕСЃРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ РёРіСЂРѕРєР°.'))
+			imgui.BulletText(u8('/peresec [1/2/3] [reason] - РЎРѕРѕР±С‰РёС‚СЊ Рѕ РїРµСЂРµСЃРµС‡РµРЅРёРё РЅРµР№С‚СЂР°Р»СЊРЅРѕРіРѕ РѕРєСЂСѓРіР°.'))
+			imgui.BulletText(u8('/cn [id] [0 - RP nick, 1 - NonRP nick] - РЎРєРѕРїРёСЂРѕРІР°С‚СЊ РЅРёРє РІ Р±СѓС„С„РµСЂ РѕР±РјРµРЅР°.'))
+			imgui.BulletText(u8('/swupd - РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃРїРёСЃРѕРє РѕР±РЅРѕРІР»РµРЅРёСЏ.'))
+			imgui.BulletText(u8('/r [Text] - РђРІС‚Рѕ С‚РµРі РІ СЂР°С†РёРё.'))
+			imgui.BulletText(u8('/f [Text] - РђРІС‚Рѕ С‚РµРі РІ СЂР°С†РёРё.'))
 		elseif show == 8 then
-			imgui.Text(u8('Введите ID'))
+			imgui.Text(u8('Р’РІРµРґРёС‚Рµ ID'))
       imgui.InputInt('##player4', buffers.rebuke.id, 0)
-      imgui.Text(u8('Тип выговора'))
+      imgui.Text(u8('РўРёРї РІС‹РіРѕРІРѕСЂР°'))
       imgui.InputText('##vig', buffers.rebuke.type)
-      imgui.Text(u8('Причина выговора'))
+      imgui.Text(u8('РџСЂРёС‡РёРЅР° РІС‹РіРѕРІРѕСЂР°'))
       imgui.InputText('##reason1', buffers.rebuke.reason)
       imgui.Spacing()
       if sampIsPlayerConnected(buffers.rebuke.id.v) then
-        imgui.Text(u8('Вывод: %s получает %s выговор за %s'):format(sampGetPlayerNickname(buffers.rebuke.id.v):gsub('_', ' '), (buffers.rebuke.type.v), (buffers.rebuke.reason.v)))
+        imgui.Text(u8('Р’С‹РІРѕРґ: %s РїРѕР»СѓС‡Р°РµС‚ %s РІС‹РіРѕРІРѕСЂ Р·Р° %s'):format(sampGetPlayerNickname(buffers.rebuke.id.v):gsub('_', ' '), (buffers.rebuke.type.v), (buffers.rebuke.reason.v)))
       else
-        imgui.Text(u8('Игрок с ID %s не подключен к серверу'):format(buffers.rebuke.id.v))
+        imgui.Text(u8('РРіСЂРѕРє СЃ ID %s РЅРµ РїРѕРґРєР»СЋС‡РµРЅ Рє СЃРµСЂРІРµСЂСѓ'):format(buffers.rebuke.id.v))
       end
-      if imgui.Button(u8('Выдать выговор'), imgui.ImVec2(-0.1, 30)) then
+      if imgui.Button(u8('Р’С‹РґР°С‚СЊ РІС‹РіРѕРІРѕСЂ'), imgui.ImVec2(-0.1, 30)) then
         if sampIsPlayerConnected(buffers.rebuke.id.v) then
-					sampSendChat(string.format('/r %s %s получает %s выговор за %s', tag(), sampGetPlayerNickname(buffers.rebuke.id.v):gsub('_', ' '), u8:decode(buffers.rebuke.type.v), u8:decode(buffers.rebuke.reason.v)))
+					sampSendChat(string.format('/r %s %s РїРѕР»СѓС‡Р°РµС‚ %s РІС‹РіРѕРІРѕСЂ Р·Р° %s', tag(), sampGetPlayerNickname(buffers.rebuke.id.v):gsub('_', ' '), u8:decode(buffers.rebuke.type.v), u8:decode(buffers.rebuke.reason.v)))
 				else 
-					stext('Игрок оффлайн!') 
+					stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 				end
 			end
 		elseif show == 9 then
-			imgui.Text(u8('Введите ID'))
+			imgui.Text(u8('Р’РІРµРґРёС‚Рµ ID'))
       imgui.InputInt('##player3', buffers.outfit.id, 0)
-      imgui.Text(u8('Количество кругов'))
+      imgui.Text(u8('РљРѕР»РёС‡РµСЃС‚РІРѕ РєСЂСѓРіРѕРІ'))
       imgui.InputInt('##krugi', buffers.outfit.circles)
-      imgui.Text(u8('Причина наряда'))
+      imgui.Text(u8('РџСЂРёС‡РёРЅР° РЅР°СЂСЏРґР°'))
       imgui.InputText('##reason', buffers.outfit.reason)
       imgui.Spacing()
       if sampIsPlayerConnected(buffers.outfit.id.v) then
-        imgui.Text(u8('Вывод: %s получает наряд %s кругов за %s'):format(sampGetPlayerNickname(buffers.outfit.id.v):gsub('_', ' '), buffers.outfit.circles.v, (buffers.outfit.reason.v)))
+        imgui.Text(u8('Р’С‹РІРѕРґ: %s РїРѕР»СѓС‡Р°РµС‚ РЅР°СЂСЏРґ %s РєСЂСѓРіРѕРІ Р·Р° %s'):format(sampGetPlayerNickname(buffers.outfit.id.v):gsub('_', ' '), buffers.outfit.circles.v, (buffers.outfit.reason.v)))
       else
-        imgui.Text(u8('Игрок с ID %s не подключен к серверу'):format(buffers.outfit.id.v))
+        imgui.Text(u8('РРіСЂРѕРє СЃ ID %s РЅРµ РїРѕРґРєР»СЋС‡РµРЅ Рє СЃРµСЂРІРµСЂСѓ'):format(buffers.outfit.id.v))
       end
-      if imgui.Button(u8('Выдать наряд'), imgui.ImVec2(-0.1, 30)) then
+      if imgui.Button(u8('Р’С‹РґР°С‚СЊ РЅР°СЂСЏРґ'), imgui.ImVec2(-0.1, 30)) then
         if sampIsPlayerConnected(buffers.outfit.id.v) then
-					sampSendChat(string.format('/r %s %s получает наряд %s кругов за %s', tag(), sampGetPlayerNickname(buffers.outfit.id.v):gsub('_', ' '), buffers.outfit.circles.v, u8:decode(buffers.outfit.reason.v)))
+					sampSendChat(string.format('/r %s %s РїРѕР»СѓС‡Р°РµС‚ РЅР°СЂСЏРґ %s РєСЂСѓРіРѕРІ Р·Р° %s', tag(), sampGetPlayerNickname(buffers.outfit.id.v):gsub('_', ' '), buffers.outfit.circles.v, u8:decode(buffers.outfit.reason.v)))
 				else 
-					stext('Игрок оффлайн!') 
+					stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 				end
 			end
 		elseif show == 10 then
 			local btn_size = imgui.ImVec2(-0.1, 25)
 			imgui.PushItemWidth(200)
-			imgui.Text(u8('Введите время говки в формате **:**, **:** и т. д.'))
+			imgui.Text(u8('Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ РіРѕРІРєРё РІ С„РѕСЂРјР°С‚Рµ **:**, **:** Рё С‚. Рґ.'))
 			imgui.InputText('##inputtext', wave)
 			imgui.Separator()
-			imgui.Text(u8('/d OG, гос. волна на %s занята за LVPD. Возражения на п.%s.'):format(u8:decode(wave.v), sInfo.MyId))
-			if imgui.Button(u8('Занять гос. волну новостей'), btn_size) then
-				sampSendChat(string.format('/d OG, гос. волна на %s занята за LVPD. Возражения на п.%s.', u8:decode(wave.v), sInfo.MyId))
+			imgui.Text(u8('/d OG, РіРѕСЃ. РІРѕР»РЅР° РЅР° %s Р·Р°РЅСЏС‚Р° Р·Р° LVPD. Р’РѕР·СЂР°Р¶РµРЅРёСЏ РЅР° Рї.%s.'):format(u8:decode(wave.v), sInfo.MyId))
+			if imgui.Button(u8('Р—Р°РЅСЏС‚СЊ РіРѕСЃ. РІРѕР»РЅСѓ РЅРѕРІРѕСЃС‚РµР№'), btn_size) then
+				sampSendChat(string.format('/d OG, РіРѕСЃ. РІРѕР»РЅР° РЅР° %s Р·Р°РЅСЏС‚Р° Р·Р° LVPD. Р’РѕР·СЂР°Р¶РµРЅРёСЏ РЅР° Рї.%s.', u8:decode(wave.v), sInfo.MyId))
 			end
-			imgui.Text(u8('/d OG, напоминаю, гос. волна новостей на %s за LVPD.'):format(u8:decode(wave.v)))
-			if imgui.Button(u8('Напомнить о занятой гос. волне новостей'), btn_size) then
-				sampSendChat(string.format('/d OG, напоминаю, гос. волна новостей на %s за LVPD.', u8:decode(wave.v)))
+			imgui.Text(u8('/d OG, РЅР°РїРѕРјРёРЅР°СЋ, РіРѕСЃ. РІРѕР»РЅР° РЅРѕРІРѕСЃС‚РµР№ РЅР° %s Р·Р° LVPD.'):format(u8:decode(wave.v)))
+			if imgui.Button(u8('РќР°РїРѕРјРЅРёС‚СЊ Рѕ Р·Р°РЅСЏС‚РѕР№ РіРѕСЃ. РІРѕР»РЅРµ РЅРѕРІРѕСЃС‚РµР№'), btn_size) then
+				sampSendChat(string.format('/d OG, РЅР°РїРѕРјРёРЅР°СЋ, РіРѕСЃ. РІРѕР»РЅР° РЅРѕРІРѕСЃС‚РµР№ РЅР° %s Р·Р° LVPD.', u8:decode(wave.v)))
 			end
 		elseif show == 11 then
-			imgui.Text(u8('Введите ID'))
+			imgui.Text(u8('Р’РІРµРґРёС‚Рµ ID'))
       imgui.InputInt('##player2', buffers.call.id, 0)
-      imgui.Text(u8('РВП'))
+      imgui.Text(u8('Р Р’Рџ'))
 			imgui.InputInt('##minutes2', buffers.call.minutes)
 			buttonSize = imgui.ImVec2(215, 30)
 			imgui.Spacing()
-			if imgui.Button(u8('Вызвать в кабинет шерифа'), buttonSize) then
+			if imgui.Button(u8('Р’С‹Р·РІР°С‚СЊ РІ РєР°Р±РёРЅРµС‚ С€РµСЂРёС„Р°'), buttonSize) then
 				if sampIsPlayerConnected(buffers.call.id.v) then
-					sampSendChat(string.format('/r %s %s, подойди в кабинет шерифа, РВП - %s минут', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' '), buffers.call.minutes.v))
+					sampSendChat(string.format('/r %s %s, РїРѕРґРѕР№РґРё РІ РєР°Р±РёРЅРµС‚ С€РµСЂРёС„Р°, Р Р’Рџ - %s РјРёРЅСѓС‚', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' '), buffers.call.minutes.v))
 				else 
-					stext('Игрок оффлайн!') 
+					stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 				end
 			end
 			imgui.SameLine()
-			if imgui.Button(u8('Вызвать на второй этаж'), buttonSize) then
+			if imgui.Button(u8('Р’С‹Р·РІР°С‚СЊ РЅР° РІС‚РѕСЂРѕР№ СЌС‚Р°Р¶'), buttonSize) then
 				if sampIsPlayerConnected(buffers.call.id.v) then
-					sampSendChat(string.format('/r %s %s, подойдите на 2 этаж.', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' ')))
+					sampSendChat(string.format('/r %s %s, РїРѕРґРѕР№РґРёС‚Рµ РЅР° 2 СЌС‚Р°Р¶.', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' ')))
 				else 
-					stext('Игрок оффлайн!') 
+					stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 				end
 			end
 			imgui.SameLine()
-			if imgui.Button(u8('Вызвать в Conference Room'), buttonSize) then
+			if imgui.Button(u8('Р’С‹Р·РІР°С‚СЊ РІ Conference Room'), buttonSize) then
 				if sampIsPlayerConnected(buffers.call.id.v) then
-					sampSendChat(string.format('/r %s %s, подойдите в Conference Room.', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' ')))
+					sampSendChat(string.format('/r %s %s, РїРѕРґРѕР№РґРёС‚Рµ РІ Conference Room.', tag(), sampGetPlayerNickname(buffers.call.id.v):gsub('_', ' ')))
 				else 
-					stext('Игрок оффлайн!') 
+					stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 				end
 			end
 		elseif show == 12 then
-			imgui.Text(u8('Введите ID'))
+			imgui.Text(u8('Р’РІРµРґРёС‚Рµ ID'))
       imgui.InputInt('##player1', buffers.location.id, 0)
-      imgui.Text(u8('Секунды'))
+      imgui.Text(u8('РЎРµРєСѓРЅРґС‹'))
 			imgui.InputInt('##minutes1', buffers.location.seconds)
 			imgui.Spacing()
       if sampIsPlayerConnected(buffers.location.id.v) then
-        imgui.Text(u8('Вывод: %s, ваше местоположение? на ответ %s секунд.'):format(sampGetPlayerNickname(buffers.location.id.v):gsub('_', ' '), buffers.location.seconds.v))
+        imgui.Text(u8('Р’С‹РІРѕРґ: %s, РІР°С€Рµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ? РЅР° РѕС‚РІРµС‚ %s СЃРµРєСѓРЅРґ.'):format(sampGetPlayerNickname(buffers.location.id.v):gsub('_', ' '), buffers.location.seconds.v))
 			else
 				if buffers.location.id.v == sInfo.MyId then
-					imgui.Text(u8('Нельзя запрашивать у самого себя!'))
+					imgui.Text(u8('РќРµР»СЊР·СЏ Р·Р°РїСЂР°С€РёРІР°С‚СЊ Сѓ СЃР°РјРѕРіРѕ СЃРµР±СЏ!'))
 				else
-					imgui.Text(u8('Игрок с ID %s не подключен к серверу'):format(buffers.location.id.v))
+					imgui.Text(u8('РРіСЂРѕРє СЃ ID %s РЅРµ РїРѕРґРєР»СЋС‡РµРЅ Рє СЃРµСЂРІРµСЂСѓ'):format(buffers.location.id.v))
 				end
       end
-			if imgui.Button(u8('Запросить местоположение'), imgui.ImVec2(-0.1, 30)) then
+			if imgui.Button(u8('Р—Р°РїСЂРѕСЃРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ'), imgui.ImVec2(-0.1, 30)) then
 				if buffers.location.id.v == sInfo.MyId then
-					stext('Нельзя запрашивать у самого себя!')
+					stext('РќРµР»СЊР·СЏ Р·Р°РїСЂР°С€РёРІР°С‚СЊ Сѓ СЃР°РјРѕРіРѕ СЃРµР±СЏ!')
 				else
 					if sampIsPlayerConnected(buffers.location.id.v) then
-						sampSendChat(string.format('/r %s %s, ваше местоположение? на ответ %s секунд.', tag(), sampGetPlayerNickname(buffers.location.id.v):gsub('_', ' '), buffers.location.seconds.v))
+						sampSendChat(string.format('/r %s %s, РІР°С€Рµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ? РЅР° РѕС‚РІРµС‚ %s СЃРµРєСѓРЅРґ.', tag(), sampGetPlayerNickname(buffers.location.id.v):gsub('_', ' '), buffers.location.seconds.v))
 					else 
-						stext('Игрок оффлайн!') 
+						stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 					end
 				end
 			end
 		end
 		imgui.End()
-		-- Ключи для биндеров
+		-- РљР»СЋС‡Рё РґР»СЏ Р±РёРЅРґРµСЂРѕРІ
 		if window['binder'].bool.v then
 			imgui.SetNextWindowSize(imgui.ImVec2(200, 300), imgui.Cond.FirstUseEver)
 			imgui.SetNextWindowPos(imgui.ImVec2(x / 2.7, y / 1.2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 			imgui.Begin('##binder', window['binder'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoTitleBar)
 			if show == 4 then
-				imgui.Text(u8('{noe} - Оставить сообщение в поле ввода\n{f6} - Отправить сообщение через чат\n{param:1} и т.д - Параметры\n{myid} - Ваш ID\n{myrpnick} - Ваш РП ник\n{naparnik} - Ваш напарник\n{kv} - Ваш текущий квадрат\n{VehId} - Ваш ID авто\n{wait:sek} - Задержка между строками\n{screen} - Сделать скриншот экрана\n{mytag} - Ваш тег'))
+				imgui.Text(u8('{noe} - РћСЃС‚Р°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ РІ РїРѕР»Рµ РІРІРѕРґР°\n{f6} - РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ С‡РµСЂРµР· С‡Р°С‚\n{param:1} Рё С‚.Рґ - РџР°СЂР°РјРµС‚СЂС‹\n{myid} - Р’Р°С€ ID\n{myrpnick} - Р’Р°С€ Р Рџ РЅРёРє\n{naparnik} - Р’Р°С€ РЅР°РїР°СЂРЅРёРє\n{kv} - Р’Р°С€ С‚РµРєСѓС‰РёР№ РєРІР°РґСЂР°С‚\n{VehId} - Р’Р°С€ ID Р°РІС‚Рѕ\n{wait:sek} - Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃС‚СЂРѕРєР°РјРё\n{screen} - РЎРґРµР»Р°С‚СЊ СЃРєСЂРёРЅС€РѕС‚ СЌРєСЂР°РЅР°\n{mytag} - Р’Р°С€ С‚РµРі'))
 			elseif show == 5 then
-				imgui.Text(u8('{noe} - Оставить сообщение в поле ввода\n{f6} - Отправить сообщение через чат\n{myid} - Ваш ID\n{myrpnick} - Ваш РП ник\n{naparnik} - Ваш напарник\n{kv} - Ваш текущий квадрат\n{VehId} - Ваш ID авто\n{wait:sek} - Задержка между строками\n{screen} - Сделать скриншот экрана\n{mytag} - Ваш тег'))
+				imgui.Text(u8('{noe} - РћСЃС‚Р°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ РІ РїРѕР»Рµ РІРІРѕРґР°\n{f6} - РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ С‡РµСЂРµР· С‡Р°С‚\n{myid} - Р’Р°С€ ID\n{myrpnick} - Р’Р°С€ Р Рџ РЅРёРє\n{naparnik} - Р’Р°С€ РЅР°РїР°СЂРЅРёРє\n{kv} - Р’Р°С€ С‚РµРєСѓС‰РёР№ РєРІР°РґСЂР°С‚\n{VehId} - Р’Р°С€ ID Р°РІС‚Рѕ\n{wait:sek} - Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃС‚СЂРѕРєР°РјРё\n{screen} - РЎРґРµР»Р°С‚СЊ СЃРєСЂРёРЅС€РѕС‚ СЌРєСЂР°РЅР°\n{mytag} - Р’Р°С€ С‚РµРі'))
 			end
 			imgui.End()
 		end
 	end
-	-- Меню шпоры
+	-- РњРµРЅСЋ С€РїРѕСЂС‹
 	if window['shpora'].bool.v then
     if data.shpora.loaded == 0 then
       data.shpora.select = {}
@@ -914,7 +914,7 @@ function imgui.OnDrawFrame()
         data.shpora.text = {}
         data.shpora.edit = 0
       else
-        -- Изменился пункт меню, загружаем шпору из уже загруженного списка файлов
+        -- РР·РјРµРЅРёР»СЃСЏ РїСѓРЅРєС‚ РјРµРЅСЋ, Р·Р°РіСЂСѓР¶Р°РµРј С€РїРѕСЂСѓ РёР· СѓР¶Рµ Р·Р°РіСЂСѓР¶РµРЅРЅРѕРіРѕ СЃРїРёСЃРєР° С„Р°Р№Р»РѕРІ
         data.filename = 'moonloader/LVPD-Helper/shpores/'..data.shpora.select[data.shpora.page]
         ----------
         data.shpora.text = {}
@@ -927,10 +927,10 @@ function imgui.OnDrawFrame()
     end
     imgui.SetNextWindowSize(imgui.ImVec2(x - 400, y - 250), imgui.Cond.FirstUseEver)
     imgui.SetNextWindowPos(imgui.ImVec2(x / 2, y / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
-    imgui.Begin(u8('LVPD-Helper | Шпора'), window['shpora'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.MenuBar + imgui.WindowFlags.HorizontalScrollbar)
+    imgui.Begin(u8('LVPD-Helper | РЁРїРѕСЂР°'), window['shpora'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.MenuBar + imgui.WindowFlags.HorizontalScrollbar)
     if imgui.BeginMenuBar(u8('LVPD-Helper')) then
       for i = 1, #data.shpora.select do
-        -- Выводим названия файлов в пункты меню, удаляем .txt из названия
+        -- Р’С‹РІРѕРґРёРј РЅР°Р·РІР°РЅРёСЏ С„Р°Р№Р»РѕРІ РІ РїСѓРЅРєС‚С‹ РјРµРЅСЋ, СѓРґР°Р»СЏРµРј .txt РёР· РЅР°Р·РІР°РЅРёСЏ
         local text = data.shpora.select[i]:gsub('.txt', '')
         if imgui.MenuItem(u8:encode(text)) then
           data.shpora.page = i
@@ -941,13 +941,13 @@ function imgui.OnDrawFrame()
     end
     ---------
     if data.shpora.edit < 0 and #data.shpora.select > 0 then
-      if imgui.Button(u8('Новая шпора'), imgui.ImVec2(120, 30)) then
+      if imgui.Button(u8('РќРѕРІР°СЏ С€РїРѕСЂР°'), imgui.ImVec2(120, 30)) then
         data.shpora.edit = 0
         data.shpora.search.v = ''
         data.shpora.inputbuffer.v = ''
       end
       imgui.SameLine()
-      if imgui.Button(u8('Изменить шпору'), imgui.ImVec2(120, 30)) then
+      if imgui.Button(u8('РР·РјРµРЅРёС‚СЊ С€РїРѕСЂСѓ'), imgui.ImVec2(120, 30)) then
         data.shpora.edit = data.shpora.page
         local text = data.shpora.select[data.shpora.page]:gsub('.txt', '')
         data.shpora.search.v = u8:encode(text)
@@ -958,15 +958,15 @@ function imgui.OnDrawFrame()
         data.shpora.inputbuffer.v = u8:encode(ttext)
       end
       imgui.SameLine()
-      if imgui.Button(u8('Удалить шпору'), imgui.ImVec2(120, 30)) then
+      if imgui.Button(u8('РЈРґР°Р»РёС‚СЊ С€РїРѕСЂСѓ'), imgui.ImVec2(120, 30)) then
         os.remove(data.filename)
         data.shpora.loaded = 0
-        stext('Шпора \''..data.filename..'\' успешно удалена!')
+        stext('РЁРїРѕСЂР° \''..data.filename..'\' СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°!')
       end
       imgui.Spacing()
       ---------
       imgui.PushItemWidth(250)
-      imgui.Text(u8('Поиск по тексту'))
+      imgui.Text(u8('РџРѕРёСЃРє РїРѕ С‚РµРєСЃС‚Сѓ'))
       imgui.InputText('##inptext', data.shpora.search)
       imgui.PopItemWidth()
       imgui.Separator()
@@ -978,41 +978,41 @@ function imgui.OnDrawFrame()
       end
     else
       imgui.PushItemWidth(250)
-      imgui.Text(u8('Введите название шпоры'))
+      imgui.Text(u8('Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С€РїРѕСЂС‹'))
       imgui.InputText('##inptext', data.shpora.search)
       imgui.PopItemWidth()
-      if imgui.Button(u8('Сохранить'), imgui.ImVec2(120, 30)) then
+      if imgui.Button(u8('РЎРѕС…СЂР°РЅРёС‚СЊ'), imgui.ImVec2(120, 30)) then
         if #data.shpora.search.v ~= 0 and #data.shpora.inputbuffer.v ~= 0 then
           if data.shpora.edit == 0 then
             local file = io.open('moonloader\\LVPD-Helper\\shpores\\'..u8:decode(data.shpora.search.v)..'.txt', 'a+')
             file:write(u8:decode(data.shpora.inputbuffer.v))
             file:close()
-            stext('Шпора успешно создана!')
+            stext('РЁРїРѕСЂР° СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅР°!')
           elseif data.shpora.edit > 0 then
             local file = io.open(data.filename, 'w+')
             file:write(u8:decode(data.shpora.inputbuffer.v))
             file:close()
             local rename = os.rename(data.filename, 'moonloader\\LVPD-Helper\\shpores\\'..u8:decode(data.shpora.search.v)..'.txt')
             if rename then
-              stext('Шпора успешно изменена!')
+              stext('РЁРїРѕСЂР° СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅР°!')
             else
-              stext('Ошибка при изменении шпоры')
+              stext('РћС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё С€РїРѕСЂС‹')
             end
           end
           data.shpora.search.v = ''
           data.shpora.loaded = 0
           data.shpora.edit = -1
 				else 
-					stext('Все поля должны быть заполнены!') 
+					stext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') 
 				end
       end
       imgui.SameLine()
-      if imgui.Button(u8('Отмена'), imgui.ImVec2(120, 30)) then
+      if imgui.Button(u8('РћС‚РјРµРЅР°'), imgui.ImVec2(120, 30)) then
         if #data.shpora.select > 0 then
           data.shpora.edit = -1
           data.shpora.search.v = ''
 				else 
-					stext('Вам необходимо создать хотя бы одну шпору!') 
+					stext('Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ СЃРѕР·РґР°С‚СЊ С…РѕС‚СЏ Р±С‹ РѕРґРЅСѓ С€РїРѕСЂСѓ!') 
 				end
       end
       imgui.Separator()
@@ -1021,37 +1021,37 @@ function imgui.OnDrawFrame()
     end
     imgui.End()
 	end 
-	-- Реестр
+	-- Р РµРµСЃС‚СЂ
 	if window['addtable'].bool.v then
-		-- Устанавливаем размер окна
+		-- РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ РѕРєРЅР°
 		imgui.SetNextWindowSize(imgui.ImVec2(700, 400), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(x / 2, y / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
-		-- Формируем окно и указываем имя 
+		-- Р¤РѕСЂРјРёСЂСѓРµРј РѕРєРЅРѕ Рё СѓРєР°Р·С‹РІР°РµРј РёРјСЏ 
 		imgui.Begin(u8(thisScript().name..' | addtable | Version: '..thisScript().version), window['addtable'].bool, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize)
-		imgui.Text(u8'Выберите тип данных')
-		imgui.Combo('##combo', data.combo.addtable, u8'Не выбрано\0Повышение\0Увольнение\0Контракт\0Выговор\0Призывник\0test\0\0')
+		imgui.Text(u8'Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РґР°РЅРЅС‹С…')
+		imgui.Combo('##combo', data.combo.addtable, u8'РќРµ РІС‹Р±СЂР°РЅРѕ\0РџРѕРІС‹С€РµРЅРёРµ\0РЈРІРѕР»СЊРЅРµРЅРёРµ\0РљРѕРЅС‚СЂР°РєС‚\0Р’С‹РіРѕРІРѕСЂ\0РџСЂРёР·С‹РІРЅРёРє\0test\0\0')
 		imgui.Separator()
 		if data.combo.addtable.v > 0 then
-			imgui.InputText(u8 'Введите ID/ник игрока', data.addtable.nick)
+			imgui.InputText(u8 'Р’РІРµРґРёС‚Рµ ID/РЅРёРє РёРіСЂРѕРєР°', data.addtable.nick)
 		end
 		if data.combo.addtable.v == 1 then
-			imgui.InputText(u8 'С какого ранга', data.addtable.param1)
-			imgui.InputText(u8 'На какой ранг', data.addtable.param2)
-			imgui.InputText(u8 'Причина', data.addtable.reason)
+			imgui.InputText(u8 'РЎ РєР°РєРѕРіРѕ СЂР°РЅРіР°', data.addtable.param1)
+			imgui.InputText(u8 'РќР° РєР°РєРѕР№ СЂР°РЅРі', data.addtable.param2)
+			imgui.InputText(u8 'РџСЂРёС‡РёРЅР°', data.addtable.reason)
 		elseif data.combo.addtable.v == 2 then
-			imgui.InputText(u8 'Причина', data.addtable.reason)
+			imgui.InputText(u8 'РџСЂРёС‡РёРЅР°', data.addtable.reason)
 		elseif data.combo.addtable.v == 3 then
-			imgui.InputText(u8 'Тип КС (1,2)', data.addtable.param2)
-			imgui.InputText(u8 'Взвод', data.addtable.reason)
+			imgui.InputText(u8 'РўРёРї РљРЎ (1,2)', data.addtable.param2)
+			imgui.InputText(u8 'Р’Р·РІРѕРґ', data.addtable.reason)
 		elseif data.combo.addtable.v == 4 then
-			imgui.InputText(u8 'Тип выговора (1 - обычный, 2 - строгий)', data.addtable.param2)
-			imgui.InputText(u8 'Причина', data.addtable.reason)
-			imgui.InputText(u8 'Приговор', data.addtable.param1)
+			imgui.InputText(u8 'РўРёРї РІС‹РіРѕРІРѕСЂР° (1 - РѕР±С‹С‡РЅС‹Р№, 2 - СЃС‚СЂРѕРіРёР№)', data.addtable.param2)
+			imgui.InputText(u8 'РџСЂРёС‡РёРЅР°', data.addtable.reason)
+			imgui.InputText(u8 'РџСЂРёРіРѕРІРѕСЂ', data.addtable.param1)
 		elseif data.combo.addtable.v == 6 then
-			imgui.InputText(u8 'Причина', data.addtable.reason)
+			imgui.InputText(u8 'РџСЂРёС‡РёРЅР°', data.addtable.reason)
 		end
 		if data.combo.addtable.v > 0 then
-			if imgui.Button(u8'Отправить') then
+			if imgui.Button(u8'РћС‚РїСЂР°РІРёС‚СЊ') then
 				local nickname = u8:decode(data.addtable.nick.v)
 				local param1 = u8:decode(data.addtable.param1.v)
 				local param2 = u8:decode(data.addtable.param2.v)
@@ -1065,48 +1065,48 @@ function imgui.OnDrawFrame()
 						if data.combo.addtable.v == 1 then
 							if nickname ~= '' and param1 ~= '' and param2 ~= '' and reason ~= '' then
 								if tonumber(param1) ~= nil and tonumber(param1) >= 1 and tonumber(param1) < 15 and tonumber(param2) ~= nil and tonumber(param2) >= 1 and tonumber(param2) < 15 then
-									atext(('Повышение: [Ник: %s] [С ранга: %s] [На ранг: %s] [Причина: %s]'):format(nickname, param1, param2, reason))
+									atext(('РџРѕРІС‹С€РµРЅРёРµ: [РќРёРє: %s] [РЎ СЂР°РЅРіР°: %s] [РќР° СЂР°РЅРі: %s] [РџСЂРёС‡РёРЅР°: %s]'):format(nickname, param1, param2, reason))
 									sendGoogleMessage('giverank', nickname, param1, param2, reason, os.time())
-								else atext('Неверные параметры ранга!') end
-							else atext('Все поля должны быть заполнены!') end
+								else atext('РќРµРІРµСЂРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ СЂР°РЅРіР°!') end
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end
 	
 						elseif data.combo.addtable.v == 2 then
 							if nickname ~= '' and reason ~= '' and nickname ~= nil and reason ~= nil then
-								atext(('Увольнение: [Ник: %s] [Причина: %s]'):format(nickname, reason))
+								atext(('РЈРІРѕР»СЊРЅРµРЅРёРµ: [РќРёРє: %s] [РџСЂРёС‡РёРЅР°: %s]'):format(nickname, reason))
 								sendGoogleMessage('uninvite', nickname, _, _, reason, os.time())
-							else atext('Все поля должны быть заполнены!') end
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end
 	
 						elseif data.combo.addtable.v == 3 then
 							if nickname ~= '' and nickname ~= nil and reason ~= nil and reason ~= '' and param2 ~= '' and param2 ~= nil then
 								if tonumber(param2) ~= nil and (tonumber(param2) == 1 or tonumber(param2) == 2) then
-									atext(('Контракт: [Ник: %s] [Тип КС: %s] [Взвод: %s]'):format(nickname, param2, reason))
+									atext(('РљРѕРЅС‚СЂР°РєС‚: [РќРёРє: %s] [РўРёРї РљРЎ: %s] [Р’Р·РІРѕРґ: %s]'):format(nickname, param2, reason))
 									sendGoogleMessage('contract', nickname, _, param2, reason, os.time())
-								else atext('Неверный тип КС') end
-							else atext('Все поля должны быть заполнены!') end
+								else atext('РќРµРІРµСЂРЅС‹Р№ С‚РёРї РљРЎ') end
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end
 	
 						elseif data.combo.addtable.v == 4 then
 							if nickname ~= '' and param1 ~= '' and param2 ~= '' and param2 ~= nil and reason ~= '' and nickname ~= nil and param1 ~= nil and reason ~= nil then
 								if tonumber(param2) ~= nil and (tonumber(param2) == 1 or tonumber(param2) == 2) then
-									atext(('Выговор: [Ник: %s] [Тип: %s] [Приговор: %s] [Причина: %s]'):format(nickname, param2, param1, reason))
+									atext(('Р’С‹РіРѕРІРѕСЂ: [РќРёРє: %s] [РўРёРї: %s] [РџСЂРёРіРѕРІРѕСЂ: %s] [РџСЂРёС‡РёРЅР°: %s]'):format(nickname, param2, param1, reason))
 									sendGoogleMessage('reprimand', nickname, param1, param2, reason, os.time())
-								else atext('Неверный тип выговора') end
-							else atext('Все поля должны быть заполнены!') end
+								else atext('РќРµРІРµСЂРЅС‹Р№ С‚РёРї РІС‹РіРѕРІРѕСЂР°') end
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end
 	
 						elseif data.combo.addtable.v == 5 then
 							if nickname ~= '' and nickname ~= nil then
-								atext(('Призывник: [Ник: %s] [Дата: %s]'):format(nickname, os.date('%d.%m.%y')))
+								atext(('РџСЂРёР·С‹РІРЅРёРє: [РќРёРє: %s] [Р”Р°С‚Р°: %s]'):format(nickname, os.date('%d.%m.%y')))
 								sendGoogleMessage('prizivnik', nickname, _, _, _, os.time())
-							else atext('Все поля должны быть заполнены!') end    
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end    
 							
 						elseif data.combo.addtable.v == 6 then
 							if nickname ~= '' and nickname ~= nil and reason ~= nil and reason ~= '' then
-								atext(('Тест: [Ник: %s] [Дата: %s] [Причина: %s]'):format(nickname, os.date('%d.%m.%y'), reason))
+								atext(('РўРµСЃС‚: [РќРёРє: %s] [Р”Р°С‚Р°: %s] [РџСЂРёС‡РёРЅР°: %s]'):format(nickname, os.date('%d.%m.%y'), reason))
 								sendGoogleMessage('test', nickname, _, _, reason, os.time())
-							else atext('Все поля должны быть заполнены!') end
+							else atext('Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹!') end
 						end
 
-					else atext('Неверный ID игрока!') end
-				else atext('Вы не можете внести себя в таблицу!') end
+					else atext('РќРµРІРµСЂРЅС‹Р№ ID РёРіСЂРѕРєР°!') end
+				else atext('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РІРЅРµСЃС‚Рё СЃРµР±СЏ РІ С‚Р°Р±Р»РёС†Сѓ!') end
 			end
 		end
 		imgui.End()
@@ -1118,7 +1118,7 @@ function sendGoogleMessage(type, name, param1, param2, reason, time)
   local mynick = sInfo.Nick
   local date = os.date('*t', time)
   date = ('%d.%d.%d %d:%d:%d'):format(date.day, date.month, date.year, date.hour, date.min, date.sec)
-  -- Формируем ссылки
+  -- Р¤РѕСЂРјРёСЂСѓРµРј СЃСЃС‹Р»РєРё
   local url = '?executor='..mynick
   if type == 'giverank' then
     url = url..('&type=%s&who=%s&param1=%s&param2=%s&reason=%s&date=%s'):format(type, name, encodeURI(u8:encode(param1)), encodeURI(u8:encode(param2)), encodeURI(u8:encode(reason)), date)
@@ -1152,7 +1152,7 @@ function sendGoogleMessage(type, name, param1, param2, reason, time)
     local dlstatus = require('moonloader').download_status
     local downloadpath = getWorkingDirectory() .. '\\LVPD-Helper\\urlRequests.json'
     wait(50)
-    -- Google Script отклоняет запросы через requests.
+    -- Google Script РѕС‚РєР»РѕРЅСЏРµС‚ Р·Р°РїСЂРѕСЃС‹ С‡РµСЂРµР· requests.
     downloadUrlToFile('https://script.google.com/macros/s/AKfycbyAr7MlRYrmMTiD3ZAG2gQnnQl4AABJP6tcjipS7y-u0V-0pyBPmwQa/exec'..url, downloadpath, function(id, status, p1, p2) -- remove
       if status == dlstatus.STATUS_ENDDOWNLOADDATA then
         complete = true
@@ -1169,7 +1169,7 @@ function sendGoogleMessage(type, name, param1, param2, reason, time)
   end)
 end
 
---- Кодирует текст для передачи в URI
+--- РљРѕРґРёСЂСѓРµС‚ С‚РµРєСЃС‚ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ URI
 function encodeURI(str)
   if (str) then
     str = string.gsub (str, '\n', '\r\n')
@@ -1180,11 +1180,11 @@ function encodeURI(str)
    return str
 end
 
--- rusUpper для русских букв
+-- rusUpper РґР»СЏ СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
 function rusUpper(string)
-	-- Русские буквы
+	-- Р СѓСЃСЃРєРёРµ Р±СѓРєРІС‹
 	local russian_characters = {
-  	[168] = 'Ё', [184] = 'ё', [192] = 'А', [193] = 'Б', [194] = 'В', [195] = 'Г', [196] = 'Д', [197] = 'Е', [198] = 'Ж', [199] = 'З', [200] = 'И', [201] = 'Й', [202] = 'К', [203] = 'Л', [204] = 'М', [205] = 'Н', [206] = 'О', [207] = 'П', [208] = 'Р', [209] = 'С', [210] = 'Т', [211] = 'У', [212] = 'Ф', [213] = 'Х', [214] = 'Ц', [215] = 'Ч', [216] = 'Ш', [217] = 'Щ', [218] = 'Ъ', [219] = 'Ы', [220] = 'Ь', [221] = 'Э', [222] = 'Ю', [223] = 'Я', [224] = 'а', [225] = 'б', [226] = 'в', [227] = 'г', [228] = 'д', [229] = 'е', [230] = 'ж', [231] = 'з', [232] = 'и', [233] = 'й', [234] = 'к', [235] = 'л', [236] = 'м', [237] = 'н', [238] = 'о', [239] = 'п', [240] = 'р', [241] = 'с', [242] = 'т', [243] = 'у', [244] = 'ф', [245] = 'х', [246] = 'ц', [247] = 'ч', [248] = 'ш', [249] = 'щ', [250] = 'ъ', [251] = 'ы', [252] = 'ь', [253] = 'э', [254] = 'ю', [255] = 'я',
+  	[168] = 'РЃ', [184] = 'С‘', [192] = 'Рђ', [193] = 'Р‘', [194] = 'Р’', [195] = 'Р“', [196] = 'Р”', [197] = 'Р•', [198] = 'Р–', [199] = 'Р—', [200] = 'Р', [201] = 'Р™', [202] = 'Рљ', [203] = 'Р›', [204] = 'Рњ', [205] = 'Рќ', [206] = 'Рћ', [207] = 'Рџ', [208] = 'Р ', [209] = 'РЎ', [210] = 'Рў', [211] = 'РЈ', [212] = 'Р¤', [213] = 'РҐ', [214] = 'Р¦', [215] = 'Р§', [216] = 'РЁ', [217] = 'Р©', [218] = 'РЄ', [219] = 'Р«', [220] = 'Р¬', [221] = 'Р­', [222] = 'Р®', [223] = 'РЇ', [224] = 'Р°', [225] = 'Р±', [226] = 'РІ', [227] = 'Рі', [228] = 'Рґ', [229] = 'Рµ', [230] = 'Р¶', [231] = 'Р·', [232] = 'Рё', [233] = 'Р№', [234] = 'Рє', [235] = 'Р»', [236] = 'Рј', [237] = 'РЅ', [238] = 'Рѕ', [239] = 'Рї', [240] = 'СЂ', [241] = 'СЃ', [242] = 'С‚', [243] = 'Сѓ', [244] = 'С„', [245] = 'С…', [246] = 'С†', [247] = 'С‡', [248] = 'С€', [249] = 'С‰', [250] = 'СЉ', [251] = 'С‹', [252] = 'СЊ', [253] = 'СЌ', [254] = 'СЋ', [255] = 'СЏ',
 	}
   local strlen = string:len()
 	if strlen == 0 then 
@@ -1196,7 +1196,7 @@ function rusUpper(string)
     local ch = string:byte(i)
     if ch >= 224 and ch <= 255 then -- lower russian characters
       output = output .. russian_characters[ch-32]
-    elseif ch == 184 then -- ё
+    elseif ch == 184 then -- С‘
       output = output .. russian_characters[168]
     else
       output = output .. string.char(ch)
@@ -1205,10 +1205,10 @@ function rusUpper(string)
   return output
 end
 
--- Автотег в рацию
+-- РђРІС‚РѕС‚РµРі РІ СЂР°С†РёСЋ
 function cmd_r(args)
 	if #args == 0 then
-		atext('Введите: /r [text]')
+		atext('Р’РІРµРґРёС‚Рµ: /r [text]')
 		return
 	end
 	if pInfo.options.tarb == true then
@@ -1220,7 +1220,7 @@ end
 
 function cmd_f(args)
 	if #args == 0 then
-		atext('Введите: /f [text]')
+		atext('Р’РІРµРґРёС‚Рµ: /f [text]')
 		return
 	end
 	if pInfo.options.tarb == true then
@@ -1230,10 +1230,10 @@ function cmd_f(args)
 	end
 end
 
--- Копирование никнеймов
+-- РљРѕРїРёСЂРѕРІР°РЅРёРµ РЅРёРєРЅРµР№РјРѕРІ
 function cmd_cn(args)
 	if #args == 0 then 
-		atext('Введите: /cn [id] [0 - RP nick, 1 - NonRP nick]') 
+		atext('Р’РІРµРґРёС‚Рµ: /cn [id] [0 - RP nick, 1 - NonRP nick]') 
 		return 
 	end
   args = string.split(args, ' ')
@@ -1242,32 +1242,32 @@ function cmd_cn(args)
   elseif #args == 2 then
     local getID = tonumber(args[1])
 		if getID == nil then 
-			stext('Неверный ID игрока!') 
+			stext('РќРµРІРµСЂРЅС‹Р№ ID РёРіСЂРѕРєР°!') 
 			return 
 		end
 		if not sampIsPlayerConnected(getID) then 
-			stext('Игрок оффлайн!') 
+			stext('РРіСЂРѕРє РѕС„С„Р»Р°Р№РЅ!') 
 			return 
 		end 
     getID = sampGetPlayerNickname(getID)
     if tonumber(args[2]) == 1 then
-      stext(('НонРП Ник {2C7AA9}%s {FFFFFF}скопирован в буфер обмена.'):format(getID))
+      stext(('РќРѕРЅР Рџ РќРёРє {2C7AA9}%s {FFFFFF}СЃРєРѕРїРёСЂРѕРІР°РЅ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°.'):format(getID))
     else
       getID = string.gsub(getID, '_', ' ')
-      stext(('РП Ник {2C7AA9}%s {FFFFFF}скопирован в буфер обмена.'):format(getID))
+      stext(('Р Рџ РќРёРє {2C7AA9}%s {FFFFFF}СЃРєРѕРїРёСЂРѕРІР°РЅ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°.'):format(getID))
     end
     setClipboardText(getID)
   else
-    atext('Введите: /cn [id] [0 - RP nick, 1 - NonRP nick]')
+    atext('Р’РІРµРґРёС‚Рµ: /cn [id] [0 - RP nick, 1 - NonRP nick]')
     return
   end 
 end
 
--- Запрос местоположения
+-- Р—Р°РїСЂРѕСЃ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ
 function cmd_loc(args)
 	args = string.split(args, ' ')
 	if #args ~= 2 then
-		atext('Введите: /loc [id] [seconds]') 
+		atext('Р’РІРµРґРёС‚Рµ: /loc [id] [seconds]') 
 		return
 	end
 	local nick = tonumber(args[1])
@@ -1275,46 +1275,46 @@ function cmd_loc(args)
 	if nick and seconds ~= nil then
 		local rpnick = sampGetPlayerNickname(nick):gsub('_', ' ')
 		if nick == sInfo.MyId or rpnick == sInfo.Nick then
-			stext('Нельзя запрашивать у самого себя!')
+			stext('РќРµР»СЊР·СЏ Р·Р°РїСЂР°С€РёРІР°С‚СЊ Сѓ СЃР°РјРѕРіРѕ СЃРµР±СЏ!')
 			return
 		else
-			sampSendChat(string.format('/r %s %s, ваше местоположение? На ответ %s секунд.', tag(), rpnick, seconds))
+			sampSendChat(string.format('/r %s %s, РІР°С€Рµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ? РќР° РѕС‚РІРµС‚ %s СЃРµРєСѓРЅРґ.', tag(), rpnick, seconds))
 		end
 	end
 end
 
--- Пересечение нейтральных округов
+-- РџРµСЂРµСЃРµС‡РµРЅРёРµ РЅРµР№С‚СЂР°Р»СЊРЅС‹С… РѕРєСЂСѓРіРѕРІ
 function cmd_peresec(args)
 	if #args == 0 then
-		atext('Введите: /peresec [1/2/3] [reason]')
-		atext('1 - Северный, 2 - Центральный, 3 - Южный.')
+		atext('Р’РІРµРґРёС‚Рµ: /peresec [1/2/3] [reason]')
+		atext('1 - РЎРµРІРµСЂРЅС‹Р№, 2 - Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№, 3 - Р®Р¶РЅС‹Р№.')
 		return
 	end
 	local args = string.split(args, ' ', 2)
 	args[1] = tonumber(args[1])
 	local reason = args[2]
 	if args[1] == 1 then
-		sampSendChat(string.format('/d AF, пересекаю северный нейтральный округ по причине %s.', reason))
+		sampSendChat(string.format('/d AF, РїРµСЂРµСЃРµРєР°СЋ СЃРµРІРµСЂРЅС‹Р№ РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ РѕРєСЂСѓРі РїРѕ РїСЂРёС‡РёРЅРµ %s.', reason))
 	elseif args[1] == 2 then
-		sampSendChat(string.format('/d AF, пересекаю центральный нейтральный округ по причине %s.', reason))
+		sampSendChat(string.format('/d AF, РїРµСЂРµСЃРµРєР°СЋ С†РµРЅС‚СЂР°Р»СЊРЅС‹Р№ РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ РѕРєСЂСѓРі РїРѕ РїСЂРёС‡РёРЅРµ %s.', reason))
 	elseif args[1] == 3 then
-		sampSendChat(string.format('/d AF, пересекаю южный нейтральный округ по причине %s.', reason))
+		sampSendChat(string.format('/d AF, РїРµСЂРµСЃРµРєР°СЋ СЋР¶РЅС‹Р№ РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ РѕРєСЂСѓРі РїРѕ РїСЂРёС‡РёРЅРµ %s.', reason))
 	end
 end
 
--- Лог обновлений
+-- Р›РѕРі РѕР±РЅРѕРІР»РµРЅРёР№
 function cmd_lvpdhelperupdates()
-  local str = '{FFFFFF}Тип: {2C7AA9}'..updatesInfo.type..'\n{FFFFFF}Версия скрипта: {2C7AA9}'..updatesInfo.version..'\n{FFFFFF}Дата выхода: {2C7AA9}'..updatesInfo.date..'{FFFFFF}\n\n'
+  local str = '{FFFFFF}РўРёРї: {2C7AA9}'..updatesInfo.type..'\n{FFFFFF}Р’РµСЂСЃРёСЏ СЃРєСЂРёРїС‚Р°: {2C7AA9}'..updatesInfo.version..'\n{FFFFFF}Р”Р°С‚Р° РІС‹С…РѕРґР°: {2C7AA9}'..updatesInfo.date..'{FFFFFF}\n\n'
   for i = 1, #updatesInfo.list do
     str = str..'{2C7AA9}-{FFFFFF}'
     for j = 1, #updatesInfo.list[i] do
       str = string.format('%s %s%s\n', str, j > 1 and ' ' or '', updatesInfo.list[i][j]:gsub('``(.-)``', '{2C7AA9}%1{FFFFFF}'))
     end
   end
-  sampShowDialog(61315125, '{2C7AA9}LVPD-Helper | {FFFFFF}Список обновлений', str, 'Закрыть', '', DIALOG_STYLE_MSGBOX)
+  sampShowDialog(61315125, '{2C7AA9}LVPD-Helper | {FFFFFF}РЎРїРёСЃРѕРє РѕР±РЅРѕРІР»РµРЅРёР№', str, 'Р—Р°РєСЂС‹С‚СЊ', '', DIALOG_STYLE_MSGBOX)
 end
 
--- Делит строку по паттерну
+-- Р”РµР»РёС‚ СЃС‚СЂРѕРєСѓ РїРѕ РїР°С‚С‚РµСЂРЅСѓ
 function string.split(str, delim, plain)
   local tokens, pos, plain = {}, 1, not (plain == false)
   repeat
@@ -1325,12 +1325,12 @@ function string.split(str, delim, plain)
   return tokens
 end
 
--- Если скрипт вылетел скрываем курсор, и сохраняем данные
+-- Р•СЃР»Рё СЃРєСЂРёРїС‚ РІС‹Р»РµС‚РµР» СЃРєСЂС‹РІР°РµРј РєСѓСЂСЃРѕСЂ, Рё СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ
 function onScriptTerminate(LuaScript, quitGame)
 	if LuaScript == thisScript() then
 		showCursor(false)
 		lua_thread.create(function()
-			print('Скрипт выключился. Настройки сохранены.')
+			print('РЎРєСЂРёРїС‚ РІС‹РєР»СЋС‡РёР»СЃСЏ. РќР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅС‹.')
 			if pInfo.onlineTimer.time then
 				pInfo.onlineTimer.time = pInfo.onlineTimer.time
 				saveData(pInfo, 'moonloader/LVPD-Helper/config.json') 
@@ -1339,7 +1339,7 @@ function onScriptTerminate(LuaScript, quitGame)
   end
 end
 
--- Cчетчики
+-- CС‡РµС‚С‡РёРєРё
 function onlineTimer()
 	lua_thread.create(function()
 		updatecount = 0 
@@ -1360,36 +1360,36 @@ function onlineTimer()
 	end)
 end
 
--- Перевод секунд в 00:00:00
+-- РџРµСЂРµРІРѕРґ СЃРµРєСѓРЅРґ РІ 00:00:00
 function secToTime(sec)
   local hour, minute, second = sec / 3600, math.floor(sec / 60), sec % 60
   return string.format('%02d:%02d:%02d', math.floor(hour) ,  minute - (math.floor(hour) * 60), second)
 end
 
--- Закрытие меню подсказки для биндеров
+-- Р—Р°РєСЂС‹С‚РёРµ РјРµРЅСЋ РїРѕРґСЃРєР°Р·РєРё РґР»СЏ Р±РёРЅРґРµСЂРѕРІ
 function binderclose()
 	if window['binder'].bool.v == true then
 		window['binder'].bool.v = false
 	end
 end
 
--- Если нажал клавишу - выполняем действие
+-- Р•СЃР»Рё РЅР°Р¶Р°Р» РєР»Р°РІРёС€Сѓ - РІС‹РїРѕР»РЅСЏРµРј РґРµР№СЃС‚РІРёРµ
 function punaccept()
 	if invite == true then
-		sampSendChat(string.format('/r %s %s новый сотрудник нашего департамента.', tag(), nick))
+		sampSendChat(string.format('/r %s %s РЅРѕРІС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РЅР°С€РµРіРѕ РґРµРїР°СЂС‚Р°РјРµРЅС‚Р°.', tag(), nick))
 		invite = false
 	end
 	if uninvite == true then
 		lua_thread.create(function()
-			sampSendChat(string.format('/me достал КПК, после чего отметил личное дело %s как «Уволен»', nick))
+			sampSendChat(string.format('/me РґРѕСЃС‚Р°Р» РљРџРљ, РїРѕСЃР»Рµ С‡РµРіРѕ РѕС‚РјРµС‚РёР» Р»РёС‡РЅРѕРµ РґРµР»Рѕ %s РєР°Рє В«РЈРІРѕР»РµРЅВ»', nick))
 			wait(1000)
-			sampSendChat(string.format('/r %s Офицер %s уволен из департамента. Причина: %s.', tag(), nick, reason))
+			sampSendChat(string.format('/r %s РћС„РёС†РµСЂ %s СѓРІРѕР»РµРЅ РёР· РґРµРїР°СЂС‚Р°РјРµРЅС‚Р°. РџСЂРёС‡РёРЅР°: %s.', tag(), nick, reason))
 		end)
 		uninvite = false
 	end
 end
 
--- Рандомные сообщения
+-- Р Р°РЅРґРѕРјРЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ
 function random_messages()
 	lua_thread.create(function()
 		while true do
@@ -1403,7 +1403,7 @@ function random_messages()
 	end)
 end
 
--- Авто-обновление
+-- РђРІС‚Рѕ-РѕР±РЅРѕРІР»РµРЅРёРµ
 function update()
 	local filepath = os.getenv('TEMP') .. '\\lvpdhelperupd.json'
 	downloadUrlToFile('https://raw.githubusercontent.com/Tur41k/update/master/lvpdhelperupd.json', filepath, function(id, status, p1, p2)
@@ -1415,32 +1415,32 @@ function update()
 				if info and info.latest then
 					if tonumber(thisScript().version) < tonumber(info.latest) then
 						lua_thread.create(function()
-							stext('Началось скачивание обновления. Скрипт перезагрузится через пару секунд.')
+							stext('РќР°С‡Р°Р»РѕСЃСЊ СЃРєР°С‡РёРІР°РЅРёРµ РѕР±РЅРѕРІР»РµРЅРёСЏ. РЎРєСЂРёРїС‚ РїРµСЂРµР·Р°РіСЂСѓР·РёС‚СЃСЏ С‡РµСЂРµР· РїР°СЂСѓ СЃРµРєСѓРЅРґ.')
 							wait(300)
 							downloadUrlToFile(updatelink, thisScript().path, function(id3, status1, p13, p23)
 								if status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-									print('Обновление успешно скачано и установлено.')
+									print('РћР±РЅРѕРІР»РµРЅРёРµ СѓСЃРїРµС€РЅРѕ СЃРєР°С‡Р°РЅРѕ Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ.')
 								elseif status1 == 64 then
-									stext('Обновление успешно скачано и установлено. Просмотреть список изменений - /swupd')
+									stext('РћР±РЅРѕРІР»РµРЅРёРµ СѓСЃРїРµС€РЅРѕ СЃРєР°С‡Р°РЅРѕ Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ. РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃРїРёСЃРѕРє РёР·РјРµРЅРµРЅРёР№ - /swupd')
 								end
 							end)
 						end)
 					else
-						print('Обновлений скрипта не обнаружено.')
+						print('РћР±РЅРѕРІР»РµРЅРёР№ СЃРєСЂРёРїС‚Р° РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅРѕ.')
 						update = false
 					end
 				end
 			else
-				print('Проверка обновления прошла неуспешно. Запускаю старую версию.')
+				print('РџСЂРѕРІРµСЂРєР° РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕС€Р»Р° РЅРµСѓСЃРїРµС€РЅРѕ. Р—Р°РїСѓСЃРєР°СЋ СЃС‚Р°СЂСѓСЋ РІРµСЂСЃРёСЋ.')
 			end
 		elseif status == 64 then
-			print('Проверка обновления прошла неуспешно. Запускаю старую версию.')
+			print('РџСЂРѕРІРµСЂРєР° РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕС€Р»Р° РЅРµСѓСЃРїРµС€РЅРѕ. Р—Р°РїСѓСЃРєР°СЋ СЃС‚Р°СЂСѓСЋ РІРµСЂСЃРёСЋ.')
 			update = false
 		end
 	end)
 end
 
--- Ключи для командного биндера
+-- РљР»СЋС‡Рё РґР»СЏ РєРѕРјР°РЅРґРЅРѕРіРѕ Р±РёРЅРґРµСЂР°
 function registerCommandsBinder()
 	for k, v in pairs(cmd_binder) do
 		if sampIsChatCommandDefined(v.cmd) then 
@@ -1453,9 +1453,9 @@ function registerCommandsBinder()
 				if #params < v.params then
 					local paramtext = ''
 					for i = 1, v.params do
-						paramtext = paramtext .. '[параметр'..i..'] '
+						paramtext = paramtext .. '[РїР°СЂР°РјРµС‚СЂ'..i..'] '
 					end
-					atext(('Введите: /%s %s'):format(v.cmd, paramtext))
+					atext(('Р’РІРµРґРёС‚Рµ: /%s %s'):format(v.cmd, paramtext))
 					return
 				else
 					for line in cmdtext:gmatch('[^\r\n]+') do
@@ -1500,7 +1500,7 @@ function registerCommandsBinder()
 	end
 end
 
--- Ключи для клавишного биндера
+-- РљР»СЋС‡Рё РґР»СЏ РєР»Р°РІРёС€РЅРѕРіРѕ Р±РёРЅРґРµСЂР°
 function onHotKey(id, keys)
 	lua_thread.create(function()
 		local sKeys = tostring(table.concat(keys, ' '))
@@ -1547,47 +1547,47 @@ function onHotKey(id, keys)
 	end)
 end
 
--- Пока окно открыто блокируем нажатия биндера
+-- РџРѕРєР° РѕРєРЅРѕ РѕС‚РєСЂС‹С‚Рѕ Р±Р»РѕРєРёСЂСѓРµРј РЅР°Р¶Р°С‚РёСЏ Р±РёРЅРґРµСЂР°
 function rkeys.onHotKey(id, keys)
 	if sampIsChatInputActive() or sampIsDialogActive() or isSampfuncsConsoleActive() then
 		return false
 	end
 end
 
--- Скрин экрана (для клавишного биндера)
+-- РЎРєСЂРёРЅ СЌРєСЂР°РЅР° (РґР»СЏ РєР»Р°РІРёС€РЅРѕРіРѕ Р±РёРЅРґРµСЂР°)
 function screen()
 	memory.setuint8(sampGetBase() + 0x119CBC, 1) 
 end
 
--- Samp Events (хуки)
+-- Samp Events (С…СѓРєРё)
 function sampevents.onServerMessage(color, text)
-	if text:find('Вы предложили .+ вступить в LVPD.') or text:find('Вы перевели .+ в Полицию ЛВ') then
-		local pNick = text:match('Вы предложили (.+) вступить в LVPD.') or text:match('Вы перевели (.+) в Полицию ЛВ')
+	if text:find('Р’С‹ РїСЂРµРґР»РѕР¶РёР»Рё .+ РІСЃС‚СѓРїРёС‚СЊ РІ LVPD.') or text:find('Р’С‹ РїРµСЂРµРІРµР»Рё .+ РІ РџРѕР»РёС†РёСЋ Р›Р’') then
+		local pNick = text:match('Р’С‹ РїСЂРµРґР»РѕР¶РёР»Рё (.+) РІСЃС‚СѓРїРёС‚СЊ РІ LVPD.') or text:match('Р’С‹ РїРµСЂРµРІРµР»Рё (.+) РІ РџРѕР»РёС†РёСЋ Р›Р’')
 		lua_thread.create(function()
 			wait(100)
 			nick = pNick:gsub('_', ' ')
 			invite = true
-			atext(('Нажмите {139904}%s{FFFFFF} для оповещения в рацию об принятии'):format(table.concat(rkeys.getKeysName(config_keys.punaccept.v), ' + ')))
+			atext(('РќР°Р¶РјРёС‚Рµ {139904}%s{FFFFFF} РґР»СЏ РѕРїРѕРІРµС‰РµРЅРёСЏ РІ СЂР°С†РёСЋ РѕР± РїСЂРёРЅСЏС‚РёРё'):format(table.concat(rkeys.getKeysName(config_keys.punaccept.v), ' + ')))
 		end)
 	end
-	if text:find('Вы выгнали .+ из организации. Причина: .+') and color == 1806958506 then
-		local pNick, pReason = text:match('Вы выгнали (.+) из организации. Причина: (.+)')
+	if text:find('Р’С‹ РІС‹РіРЅР°Р»Рё .+ РёР· РѕСЂРіР°РЅРёР·Р°С†РёРё. РџСЂРёС‡РёРЅР°: .+') and color == 1806958506 then
+		local pNick, pReason = text:match('Р’С‹ РІС‹РіРЅР°Р»Рё (.+) РёР· РѕСЂРіР°РЅРёР·Р°С†РёРё. РџСЂРёС‡РёРЅР°: (.+)')
 		lua_thread.create(function()
 			wait(100)
 			nick = pNick:gsub('_', ' ')
 			reason = pReason
 			uninvite = true
-			atext(('Нажмите {139904}%s{FFFFFF} для оповещения в рацию об увольнении'):format(table.concat(rkeys.getKeysName(config_keys.punaccept.v), ' + ')))
+			atext(('РќР°Р¶РјРёС‚Рµ {139904}%s{FFFFFF} РґР»СЏ РѕРїРѕРІРµС‰РµРЅРёСЏ РІ СЂР°С†РёСЋ РѕР± СѓРІРѕР»СЊРЅРµРЅРёРё'):format(table.concat(rkeys.getKeysName(config_keys.punaccept.v), ' + ')))
 		end)
 	end
 	if color == 1687547391 then
-		if text:find('Вы выписали штраф в размере') then
+		if text:find('Р’С‹ РІС‹РїРёСЃР°Р»Рё С€С‚СЂР°С„ РІ СЂР°Р·РјРµСЂРµ') then
 			pInfo.dayCounter.tickets = pInfo.dayCounter.tickets + 1
-		elseif text:find('Вы посадили в тюрьму') then
+		elseif text:find('Р’С‹ РїРѕСЃР°РґРёР»Рё РІ С‚СЋСЂСЊРјСѓ') then
 			pInfo.dayCounter.arrested = pInfo.dayCounter.arrested + 1
 		end
 		if pInfo.options.clistb == true then
-			if text:find('Рабочий день начат') then
+			if text:find('Р Р°Р±РѕС‡РёР№ РґРµРЅСЊ РЅР°С‡Р°С‚') then
 				lua_thread.create(function()
 					wait(1)
 					sampSendChat(string.format('/clist %s', pInfo.options.clist))
@@ -1597,30 +1597,30 @@ function sampevents.onServerMessage(color, text)
 	end
 	if pInfo.options.pg == true then
 		if color == -1697828097 then
-			if text:find('Вы назначили (.+) (.+)') then
-				local nick, rank = text:match('Вы назначили (.+) (.+)')
-				-- Название погон
+			if text:find('Р’С‹ РЅР°Р·РЅР°С‡РёР»Рё (.+) (.+)') then
+				local nick, rank = text:match('Р’С‹ РЅР°Р·РЅР°С‡РёР»Рё (.+) (.+)')
+				-- РќР°Р·РІР°РЅРёРµ РїРѕРіРѕРЅ
 				local ranknames = {
-					['Кадет[1].'] = 'Кадета',
-					['Офицер[2].'] = 'Офицера',
-					['Мл.Сержант[3].'] = 'Мл.Сержанта',
-					['Сержант[4].'] = 'Сержанта',
-					['Прапорщик[5].'] = 'Прапорщика',
-					['Ст.Прапорщик[6].'] = 'Ст.Прапорщика',
-					['Мл.Лейтенант[7].'] = 'Мл.Лейтенанта',
-					['Лейтенант[8].'] = 'Лейтенанта',
-					['Ст.Лейтенант[9].'] = 'Ст.Лейтенанта',
-					['Капитан[10].'] = 'Капитана',
-					['Майор[11].'] = 'Майора',
-					['Подполковник[12].'] = 'Подполковника',
-					['Полковник[13].'] = 'Полковника'
+					['РљР°РґРµС‚[1].'] = 'РљР°РґРµС‚Р°',
+					['РћС„РёС†РµСЂ[2].'] = 'РћС„РёС†РµСЂР°',
+					['РњР».РЎРµСЂР¶Р°РЅС‚[3].'] = 'РњР».РЎРµСЂР¶Р°РЅС‚Р°',
+					['РЎРµСЂР¶Р°РЅС‚[4].'] = 'РЎРµСЂР¶Р°РЅС‚Р°',
+					['РџСЂР°РїРѕСЂС‰РёРє[5].'] = 'РџСЂР°РїРѕСЂС‰РёРєР°',
+					['РЎС‚.РџСЂР°РїРѕСЂС‰РёРє[6].'] = 'РЎС‚.РџСЂР°РїРѕСЂС‰РёРєР°',
+					['РњР».Р›РµР№С‚РµРЅР°РЅС‚[7].'] = 'РњР».Р›РµР№С‚РµРЅР°РЅС‚Р°',
+					['Р›РµР№С‚РµРЅР°РЅС‚[8].'] = 'Р›РµР№С‚РµРЅР°РЅС‚Р°',
+					['РЎС‚.Р›РµР№С‚РµРЅР°РЅС‚[9].'] = 'РЎС‚.Р›РµР№С‚РµРЅР°РЅС‚Р°',
+					['РљР°РїРёС‚Р°РЅ[10].'] = 'РљР°РїРёС‚Р°РЅР°',
+					['РњР°Р№РѕСЂ[11].'] = 'РњР°Р№РѕСЂР°',
+					['РџРѕРґРїРѕР»РєРѕРІРЅРёРє[12].'] = 'РџРѕРґРїРѕР»РєРѕРІРЅРёРєР°',
+					['РџРѕР»РєРѕРІРЅРёРє[13].'] = 'РџРѕР»РєРѕРІРЅРёРєР°'
 				}
 				if ranknames[rank] ~= nil then 
 					local rank = ranknames[rank]
 					local nick = nick:gsub('_', ' ')
 					lua_thread.create(function()
 						wait(1000)
-						sampSendChat(string.format('/me достал футляр с погонами %s и передал их %s', rank, nick))
+						sampSendChat(string.format('/me РґРѕСЃС‚Р°Р» С„СѓС‚Р»СЏСЂ СЃ РїРѕРіРѕРЅР°РјРё %s Рё РїРµСЂРµРґР°Р» РёС… %s', rank, nick))
 					end)
 				end
 			end
@@ -1637,11 +1637,11 @@ function sampevents.onSendSpawn()
 	end
 end
 
--- Узнаем нужную нам информацию
--- Фракция по скину персонажа
+-- РЈР·РЅР°РµРј РЅСѓР¶РЅСѓСЋ РЅР°Рј РёРЅС„РѕСЂРјР°С†РёСЋ
+-- Р¤СЂР°РєС†РёСЏ РїРѕ СЃРєРёРЅСѓ РїРµСЂСЃРѕРЅР°Р¶Р°
 function sampGetFraktionBySkin(id)
   local skin = 0
-  local t = 'Гражданский'
+  local t = 'Р“СЂР°Р¶РґР°РЅСЃРєРёР№'
   local result, ped = sampGetCharHandleBySampPlayerId(id)
   if result then
     skin = getCharModel(ped)
@@ -1661,13 +1661,13 @@ function sampGetFraktionBySkin(id)
   elseif skin == 191 or skin == 252 or skin == 287 or skin == 61 or skin == 179 or skin == 255 then 
     t = 'Army' 
   elseif skin == 57 or skin == 98 or skin == 147 or skin == 150 or skin == 187 or skin == 216 then 
-    t = 'Мэрия' 
+    t = 'РњСЌСЂРёСЏ' 
 	elseif skin == 59 or skin == 172 or skin == 189 or skin == 240 then 
-    t = 'Автошкола' 
+    t = 'РђРІС‚РѕС€РєРѕР»Р°' 
   elseif skin == 201 or skin == 247 or skin == 248 or skin == 254 or skin == 248 or skin == 298 then 
-    t = 'Байкеры' 
+    t = 'Р‘Р°Р№РєРµСЂС‹' 
   elseif skin == 272 or skin == 112 or skin == 125 or skin == 214 or skin == 111  or skin == 126 then 
-    t = 'Русская мафия' 
+    t = 'Р СѓСЃСЃРєР°СЏ РјР°С„РёСЏ' 
   elseif skin == 113 or skin == 124 or skin == 214 or skin == 223 then 
     t = 'La Cosa Nostra' 
   elseif skin == 120 or skin == 123 or skin == 169 or skin == 186 then 
@@ -1675,16 +1675,16 @@ function sampGetFraktionBySkin(id)
   elseif skin == 211 or skin == 217 or skin == 250 or skin == 261 then 
     t = 'News' 
   elseif skin == 70 or skin == 219 or skin == 274 or skin == 275 or skin == 276 or skin == 70 then 
-    t = 'Медики' 
+    t = 'РњРµРґРёРєРё' 
   elseif skin == 286 or skin == 141 or skin == 163 or skin == 164 or skin == 165 or skin == 166 then 
     t = 'FBI' 
   elseif skin == 280 or skin == 265 or skin == 266 or skin == 267 or skin == 281 or skin == 282 or skin == 288 or skin == 284 or skin == 285 or skin == 304 or skin == 305 or skin == 306 or skin == 307 or skin == 309 or skin == 283 or skin == 303 then 
-    t = 'Полиция' 
+    t = 'РџРѕР»РёС†РёСЏ' 
   end
   return t
 end
 
--- Ник Unit'a(ов) (в машине, на улице)
+-- РќРёРє Unit'a(РѕРІ) (РІ РјР°С€РёРЅРµ, РЅР° СѓР»РёС†Рµ)
 function unit()
 	local v = {}
   if isCharInAnyCar(PLAYER_PED) then
@@ -1696,7 +1696,7 @@ function unit()
           if isCharInAnyCar(ichar) then
             local iveh = storeCarCharIsInNoSave(ichar)
             if veh == iveh then
-							if sampGetFraktionBySkin(i) == 'Полиция' or sampGetFraktionBySkin(i) == 'FBI' then
+							if sampGetFraktionBySkin(i) == 'РџРѕР»РёС†РёСЏ' or sampGetFraktionBySkin(i) == 'FBI' then
 								local inick, ifam = sampGetPlayerNickname(i):match('(.+)_(.+)')
 								if inick and ifam then
 									table.insert(v, string.format('%s.%s', inick:sub(1,1), ifam))
@@ -1715,7 +1715,7 @@ function unit()
         if doesCharExist(ichar) then
           local ix, iy, iz = getCharCoordinates(ichar)
           if getDistanceBetweenCoords3d(myposx, myposy, myposz, ix, iy, iz) <= 30 then
-						if sampGetFraktionBySkin(i) == 'Полиция' or sampGetFraktionBySkin(i) == 'FBI' then
+						if sampGetFraktionBySkin(i) == 'РџРѕР»РёС†РёСЏ' or sampGetFraktionBySkin(i) == 'FBI' then
 							local inick, ifam = sampGetPlayerNickname(i):match('(.+)_(.+)')
 							local inick = sampGetPlayerNickname(i)
 							if inick and ifam then
@@ -1736,33 +1736,33 @@ function unit()
   end
 end
 
--- Квадрат где наш персонаж находится
+-- РљРІР°РґСЂР°С‚ РіРґРµ РЅР°С€ РїРµСЂСЃРѕРЅР°Р¶ РЅР°С…РѕРґРёС‚СЃСЏ
 function kvadrat()
   local KV = {
-    [1] = 'А',
-    [2] = 'Б',
-    [3] = 'В',
-    [4] = 'Г',
-    [5] = 'Д',
-    [6] = 'Ж',
-    [7] = 'З',
-    [8] = 'И',
-    [9] = 'К',
-    [10] = 'Л',
-    [11] = 'М',
-    [12] = 'Н',
-    [13] = 'О',
-    [14] = 'П',
-    [15] = 'Р',
-    [16] = 'С',
-    [17] = 'Т',
-    [18] = 'У',
-    [19] = 'Ф',
-    [20] = 'Х',
-    [21] = 'Ц',
-    [22] = 'Ч',
-    [23] = 'Ш',
-    [24] = 'Я',
+    [1] = 'Рђ',
+    [2] = 'Р‘',
+    [3] = 'Р’',
+    [4] = 'Р“',
+    [5] = 'Р”',
+    [6] = 'Р–',
+    [7] = 'Р—',
+    [8] = 'Р',
+    [9] = 'Рљ',
+    [10] = 'Р›',
+    [11] = 'Рњ',
+    [12] = 'Рќ',
+    [13] = 'Рћ',
+    [14] = 'Рџ',
+    [15] = 'Р ',
+    [16] = 'РЎ',
+    [17] = 'Рў',
+    [18] = 'РЈ',
+    [19] = 'Р¤',
+    [20] = 'РҐ',
+    [21] = 'Р¦',
+    [22] = 'Р§',
+    [23] = 'РЁ',
+    [24] = 'РЇ',
   }
   local X, Y, Z = getCharCoordinates(playerPed)
   X = math.ceil((X + 3000) / 250)
@@ -1772,7 +1772,7 @@ function kvadrat()
   return KVX
 end
 
--- Автотег для биндера
+-- РђРІС‚РѕС‚РµРі РґР»СЏ Р±РёРЅРґРµСЂР°
 function tag()
 	local tag = {}
 	if pInfo.options.tarb == true then
@@ -1783,7 +1783,7 @@ function tag()
 	return table.concat(tag)
 end
 
--- Сохраняем информацию
+-- РЎРѕС…СЂР°РЅСЏРµРј РёРЅС„РѕСЂРјР°С†РёСЋ
 function saveData(table, path)
 	if doesFileExist(path) then 
 		os.remove(path) 
@@ -1795,7 +1795,7 @@ function saveData(table, path)
   end
 end
 
--- Функции для красоты в imgui
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ РєСЂР°СЃРѕС‚С‹ РІ imgui
 function imgui.CentrText(text)
 	local width = imgui.GetWindowWidth()
 	local calc = imgui.CalcTextSize(text)
@@ -1864,7 +1864,7 @@ function imgui.TextColoredRGB(text)
   render_text(text)
 end
 
--- Украшение нашего имгуи меню
+-- РЈРєСЂР°С€РµРЅРёРµ РЅР°С€РµРіРѕ РёРјРіСѓРё РјРµРЅСЋ
 function apply_custom_style()
 	imgui.SwitchContext()
 	local style = imgui.GetStyle()
@@ -1929,11 +1929,11 @@ function apply_custom_style()
 	colors[clr.ModalWindowDarkening] = ImVec4(1.00, 0.98, 0.95, 0.73)
 end
 
--- Упрощение жизни
+-- РЈРїСЂРѕС‰РµРЅРёРµ Р¶РёР·РЅРё
 function stext(text)
   sampAddChatMessage((' %s {FFFFFF}%s'):format(script.this.name, text), 0x2C7AA9)
 end
 
 function atext(text)
-	sampAddChatMessage((' » {FFFFFF}%s'):format(text), 0x2C7AA9)
+	sampAddChatMessage((' В» {FFFFFF}%s'):format(text), 0x2C7AA9)
 end
