@@ -1,1 +1,1 @@
-# Script's for automatic update
+Script's for automatic update
