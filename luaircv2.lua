@@ -46,19 +46,15 @@ function meta_preconnect.__index(o, k)
 end
 
 function new(data)
-	nick = data.nick:gsub("%W", tonumber(symbol) and symbol or "")
-	if not checkNick(nick) then
-		nick = "invalid" .. math.random(1, 100)
-	end
-
-	local o = {		
-		nick = nick;
+	local o = {
+		nick = assert(data.nick, "Field 'nick' is required");
 		username = data.username or "lua";
 		realname = data.realname or "Lua owns";
 		nickGenerator = data.nickGenerator or defaultNickGenerator;
 		hooks = {};
 		track_users = true;
 	}
+	assert(checkNick(o.nick), "Erroneous nickname passed to irc.new")
 	return setmetatable(o, meta_preconnect)
 end
 
